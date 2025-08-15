@@ -1,5 +1,4 @@
-
-
+// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -10,8 +9,17 @@ console.log("🔍 MONGO_URI chargé :", process.env.MONGO_URI);
 
 const app = express();
 
-// Origines autorisées pour CORS
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'];
+// -------------------------
+// CORS
+// -------------------------
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'https://admin-fabert.vercel.app',
+  'https://agence-fabert.vercel.app'
+];
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -25,19 +33,24 @@ app.use(cors({
   credentials: true
 }));
 
-// Middleware OPTIONS
+// Middleware OPTIONS pour toutes les routes
 app.options('*', cors());
 
-// Middleware pour parser le JSON dans les requêtes
+// -------------------------
+// Middlewares
+// -------------------------
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-// Logger simple des requêtes
+
+// Logger simple
 app.use((req, res, next) => {
   console.log(`📡 ${req.method} ${req.url}`);
   next();
 });
 
+// -------------------------
 // Connexion à MongoDB
+// -------------------------
 const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
   console.error("❌ Erreur : MONGO_URI n'est pas défini dans le fichier .env !");
@@ -52,26 +65,25 @@ mongoose
     process.exit(1);
   });
 
-// Route de test simple
+// -------------------------
+// Routes
+// -------------------------
 app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API KTI Immo !");
 });
 
-// Import des routes
 const propertyRoutes = require("./routes/propertyRoutes");
 const locationAnnuelleRoutes = require("./routes/locationAnnuelleRoutes");
 const locationSaisonniereRoutes = require("./routes/locationSaisonniereRoutes");
 
-// Utilisation des routes
 app.use("/api/properties", propertyRoutes);
 app.use("/api/locations-annuelles", locationAnnuelleRoutes);
 app.use("/api/locations-saisonnieres", locationSaisonniereRoutes);
 
-// Démarrage du serveur
+// -------------------------
+// Démarrage serveur
+// -------------------------
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Serveur démarré sur le port ${PORT}`);
 });
-
-
-
