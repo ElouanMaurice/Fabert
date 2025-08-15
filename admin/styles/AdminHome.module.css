@@ -1,0 +1,42 @@
+/* AdminHome.module.css */
+
+.container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c6e49;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+  
+  .list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .listItem {
+    margin: 20px 0;
+  }
+  
+  .link {
+    font-size: 1.3rem;
+    color: #8EA88C;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #2c6e49;
+    text-decoration: underline;
+  }
+  

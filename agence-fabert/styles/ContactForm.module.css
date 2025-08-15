@@ -1,0 +1,121 @@
+/* Style général du conteneur */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    background-color: #f8f8f8; /* Fond doux */
+}
+
+/* Contenu principal */
+.content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Titre principal */
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c6e49;
+    margin-bottom: 10px;
+}
+
+/* Sous-titre */
+.description {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Section des informations de contact */
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Icônes de contact */
+.icon {
+    font-size: 20px;
+    color: #8EA88C;
+}
+
+/* Section des réseaux sociaux */
+.socialMedia {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.socialMedia a {
+    font-size: 24px;
+    color: #8EA88C;
+    transition: transform 0.3s ease-in-out, color 0.3s;
+}
+
+.socialMedia a:hover {
+    transform: scale(1.2);
+    color: #2c6e49;
+}
+
+/* Formulaire */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input, .textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #8EA88C;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+.input:focus, .textarea:focus {
+    border-color: #2c6e49;
+}
+
+/* Zone de texte */
+.textarea {
+    min-height: 120px;
+    resize: none;
+}
+
+/* Bouton d'envoi */
+.button {
+    background-color: #8EA88C;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #2c6e49;
+}

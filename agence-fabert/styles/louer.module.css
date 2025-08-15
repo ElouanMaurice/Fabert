@@ -1,0 +1,68 @@
+/* Conteneur principal */
+.firstcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+    align-items: center;
+    width: 100%;
+  }
+
+/* Titre principal */
+.h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2c6e49; 
+    margin-top: 5%;
+    
+}
+.h4 {
+    padding-bottom: 30%;
+}
+
+/* Boutons de sélection */
+.buttonContainer {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.button {
+    background-color: #8EA88C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #2c6e49;
+}
+
+.active {
+    background-color: #2c6e49;
+    color: white;
+    border: 1px solid #2c6e49;
+}
+
+.container {
+    display: flex;
+    gap: 20px; /* Espacement entre la barre de filtre et la liste */
+    padding: 20px;
+  }
+  
+  
+  .sidebar {
+    width: 250px; /* Largeur de la barre de filtre */
+  }
+  
+  .content {
+    flex: 1; /* La liste prend tout l'espace restant */
+  }
+
+
+
+

@@ -1,0 +1,19 @@
+.propertyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* Afficher 3 colonnes pour un affichage plus aéré */
+  gap: 30px;  /* Espacement entre les cartes */
+  margin-left: 90px;
+  margin-top: 20px;
+}
+
+@media (max-width: 1200px) {
+  .propertyGrid {
+    grid-template-columns: repeat(2, 1fr);  /* 2 colonnes sur des écrans plus petits */
+  }
+}
+
+@media (max-width: 768px) {
+  .propertyGrid {
+    grid-template-columns: 1fr;  /* 1 colonne sur des petits écrans */
+  }
+}

@@ -1,0 +1,99 @@
+.footer {
+  background-color: #f8f8f8;
+  padding: 40px 20px;
+  color: #333;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  text-align: left;
+  gap: 40px;
+}
+
+.info,
+.links,
+.horaires,
+.social {
+  flex: 1;
+  min-width: 250px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c6e49;
+  margin-bottom: 10px;
+}
+
+.icon {
+  margin-right: 8px;
+  color: #8ea88c;
+}
+
+.lienlink {
+  display: flex;
+  flex-direction: column;
+}
+
+.lien {
+  margin: 4px 0;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.lien:hover {
+  color: #2c6e49;
+}
+
+.horaires p {
+  margin: 3px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.heure {
+  margin-right: 8px;
+  color: #8ea88c;
+}
+
+.social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconSocial {
+  font-size: 24px;
+  color: #8ea88c;
+  margin: 5px;
+  transition: transform 0.3s ease-in-out, color 0.3s;
+}
+
+.iconSocial:hover {
+  transform: scale(1.2);
+  color: #2c6e49;
+}
+
+.legal {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.legal a {
+  color: #8ea88c;
+  text-decoration: none;
+}
+
+.legal a:hover {
+  text-decoration: underline;
+}

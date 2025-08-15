@@ -1,0 +1,9 @@
+.countContainer {
+  padding: 5px 10px;
+  background-color: #f7f7f7;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: inline-block;  /* pour que le fond suive le texte */
+  margin-left: auto;      /* pousse le bloc à droite */
+}

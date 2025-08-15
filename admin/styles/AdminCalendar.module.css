@@ -1,0 +1,41 @@
+/* styles/CustomCalendar.module.css */
+.calendarContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.monthContainer {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 220px;
+}
+
+.weekDays, .week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.dayName {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+}
+
+.day {
+  padding: 8px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.today {
+  border: 1px solid #0070f3;
+}
+
+.selected {
+  background-color: #0070f3;
+  color: white;
+}

@@ -1,0 +1,132 @@
+/* Container principal */
+.filterBar {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Groupes label + champ */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.group label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+/* Inputs et selects standards */
+.group input,
+.group select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Prix côte à côte */
+.priceGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.priceGroup label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.priceInputs {
+  display: flex;
+  gap: 8px;
+}
+
+.priceInputs input {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+/* Boutons types */
+.typeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.typeButton {
+  padding: 8px 14px;
+  font-size: 14px;
+  border: 1.5px solid #8EA88C;
+  border-radius: 8px;
+  background-color: white;
+  color: #8EA88C;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  user-select: none;
+}
+
+.typeButton:hover {
+  background-color: #d1e4cd;
+  border-color: #6b8a5f;
+}
+
+.typeButton.selected {
+  background-color: #8EA88C;
+  color: white;
+  border-color: #6b8a5f;
+}
+
+/* Zone à cases cochées */
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.checkboxGroup legend {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* Groupe des boutons */
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  grid-column: 1 / -1; /* Prend toute la largeur */
+}
+
+.buttonGroup button {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #8EA88C;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.buttonGroup button:hover {
+  background-color: #7c987d;
+}

@@ -1,0 +1,53 @@
+.Header {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #8EA88C;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+    height: 125px; /* Ajuste la hauteur selon ton besoin */
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    padding-left: 3%;
+    margin-right: auto; /* Permet de coller le logo à gauche */
+}
+.logoimage {
+    width: 20%; /* Adapte la taille en fonction de la largeur du parent */
+    min-width: 130px; /* Empêche le logo de devenir trop petit */
+    height: auto;
+}
+
+
+.menu {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: white;
+    height: 50px;
+    width: 90%; 
+
+}
+
+
+.titlemenu {
+    font-size: 130%;
+    font-family: inherit;
+    font-weight: 700;
+    text-transform: uppercase; /* Pour un effet plus structuré */
+    text-decoration: none;
+    color: #8EA88C;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+

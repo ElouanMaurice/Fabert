@@ -1,0 +1,94 @@
+.propertyCard {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carouselWrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.image {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.propertyCardInfo {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.propertyCardInfo h3 {
+  font-size: 1.4rem;
+  margin: 5px 0;
+}
+
+.propertyCardInfo p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+
+.button {
+  margin-top: 10px;
+  background-color: #8EA88C;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #6a8a6d;
+}
+
+/* Carousel arrows + indicators */
+.carousel .control-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;                 /* taille du fond */
+  height: 50px;
+  background: rgba(50, 50, 50, 0.5);  /* couleur de fond */
+  color: white;               /* couleur flèche */
+  border: none;
+  border-radius: 50%;         /* forme ronde */
+  font-size: 30px;            /* taille flèche */
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel .control-arrow:before {
+  color: #333;
+  font-size: 24px;
+}
+
+.carousel .dot {
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+}
+
+.carousel .dot.selected {
+  background: #8EA88C;
+}
+
+
