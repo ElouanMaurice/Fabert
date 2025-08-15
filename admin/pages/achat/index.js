@@ -7,7 +7,7 @@ export default function AchatPage() {
   const [biens, setBiens] = useState([]);
 
   useEffect(() => {
-    fetch('${process.env.NEXT_PUBLIC_API_URL}/api/properties')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`)
       .then(res => res.json())
       .then(data => setBiens(data));
   }, []);

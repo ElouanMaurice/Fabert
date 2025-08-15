@@ -43,7 +43,7 @@ export default function AjouterLocationAnnuelle() {
       data.append('file', file);
       data.append('upload_preset', 'unsigned_preset'); // Remplace par ton preset Cloudinary
 
-      const res = await fetch('https://api.cloudinary.com/v1_1/dcua9jmdz/image/upload', {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/dcua9jmdz/image/upload`, {
         method: 'POST',
         body: data,
       });
@@ -78,7 +78,7 @@ export default function AjouterLocationAnnuelle() {
       rooms: Number(form.rooms),
     };
 
-    await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles', {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

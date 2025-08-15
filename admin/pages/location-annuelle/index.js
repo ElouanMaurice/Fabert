@@ -7,7 +7,7 @@ export default function ListeLocationsAnnuelles() {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles`)
       .then(res => res.json())
       .then(data => setLocations(data));
   }, []);
