@@ -4,14 +4,13 @@ import Header from '../components/Header';
 import Menu from '../components/Menu';
 import Content from '../components/Content';
 import Footer from '../components/Footer';
-import Honoraire from '../components/Honoraire';
 
 
 const honoraires = () => {
   return (
     <div>
       <Header />
-      <Honoraire/>
+      <div>Page honoraires en maintenance</div>
       <Footer />
     </div>
   );
