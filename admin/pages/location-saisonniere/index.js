@@ -7,13 +7,13 @@ export default function ListeLocationsSaisonnieres() {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/locations-saisonnieres')
+    fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres')
       .then(res => res.json())
       .then(data => setLocations(data));
   }, []);
 
   const supprimerLocation = async (id) => {
-    await fetch(`http://localhost:3001/api/locations-saisonnieres/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres/${id}`, {
       method: 'DELETE',
     });
     setLocations(locations.filter(l => l._id !== id));

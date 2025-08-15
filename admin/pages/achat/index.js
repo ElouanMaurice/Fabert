@@ -7,13 +7,13 @@ export default function AchatPage() {
   const [biens, setBiens] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/properties')
+    fetch('${process.env.NEXT_PUBLIC_API_URL}/api/properties')
       .then(res => res.json())
       .then(data => setBiens(data));
   }, []);
 
   const supprimerBien = async (id) => {
-    await fetch(`http://localhost:3001/api/properties/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties/${id}`, {
       method: 'DELETE',
     });
     setBiens(biens.filter(b => b._id !== id));

@@ -78,7 +78,7 @@ export default function AjouterLocationAnnuelle() {
       rooms: Number(form.rooms),
     };
 
-    await fetch('http://localhost:3001/api/locations-annuelles', {
+    await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

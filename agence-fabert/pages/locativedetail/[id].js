@@ -77,7 +77,7 @@ const LocativeDetail = ({ location }) => {
 
 export async function getServerSideProps({ params }) {
   try {
-    const res = await fetch(`http://localhost:3001/api/locations-annuelles/${params.id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles/${params.id}`);
     if (!res.ok) throw new Error("Bien non trouvé");
 
     const location = await res.json();

@@ -13,7 +13,7 @@ export default function ModifierBien() {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`http://localhost:3001/api/properties/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties/${id}`)
       .then(res => res.json())
       .then(data => {
         setForm({
@@ -32,7 +32,7 @@ export default function ModifierBien() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:3001/api/properties/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),

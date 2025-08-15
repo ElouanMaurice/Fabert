@@ -46,8 +46,8 @@ const Louer = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resLoc = await fetch('http://localhost:3001/api/locations-annuelles');
-        const resSaison = await fetch('http://localhost:3001/api/locations-saisonnieres');
+        const resLoc = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles');
+        const resSaison = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres');
         
 
         if (!resLoc.ok || !resSaison.ok) {

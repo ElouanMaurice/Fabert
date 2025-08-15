@@ -113,7 +113,7 @@ const AchatDetail = ({ property }) => {
 
 export async function getServerSideProps({ params }) {
   try {
-    const res = await fetch(`http://localhost:3001/api/properties/${params.id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties/${params.id}`);
     if (!res.ok) throw new Error("Bien non trouvé");
 
     const property = await res.json();

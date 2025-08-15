@@ -79,7 +79,7 @@ export default function AjouterLocationSaisonniere() {
 
     
 
-    await fetch('http://localhost:3001/api/locations-saisonnieres', {
+    await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

@@ -13,7 +13,7 @@ export default function ModifierLocationSaisonniere() {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`http://localhost:3001/api/locations-saisonnieres/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres/${id}`)
       .then(res => res.json())
       .then(data => {
         setForm({
@@ -41,7 +41,7 @@ export default function ModifierLocationSaisonniere() {
       rooms: Number(form.rooms),
     };
 
-    await fetch(`http://localhost:3001/api/locations-saisonnieres/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

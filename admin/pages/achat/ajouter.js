@@ -94,7 +94,7 @@ export default function Ajouter() {
       return;
     }
 
-    await fetch('http://localhost:3001/api/properties', {
+    await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/properties', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),

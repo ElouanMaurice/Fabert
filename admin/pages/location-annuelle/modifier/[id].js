@@ -18,7 +18,7 @@ export default function ModifierLocationAnnuelle() {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3001/api/locations-annuelles/${id}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles/${id}`)
         .then(res => res.json())
         .then(data => setFormData(data));
     }
@@ -32,7 +32,7 @@ export default function ModifierLocationAnnuelle() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`http://localhost:3001/api/locations-annuelles/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-annuelles/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
