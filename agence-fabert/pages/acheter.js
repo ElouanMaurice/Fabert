@@ -21,7 +21,7 @@ const Acheter = () => {
     const fetchProperties = async () => {
       try {
         // Assure-toi que l'URL est correcte pour récupérer les biens
-        const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/properties");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`);
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des biens");
         }
