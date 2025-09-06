@@ -38,6 +38,10 @@ const AchatBien = ({ property }) => {
           <h3>{property.title}</h3>
           <p>{property.location}</p>
           <p>{property.price}€</p>
+         <p>{property.surface}m²</p>
+          <p>Réf : {property.reference}</p> 
+ 
+         
         </div>
       </Link>
 
