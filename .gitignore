@@ -6,6 +6,10 @@ yarn-error.log
 # Environnement
 .env
 
+# Next.js
+.next/
+
+
 # Fichiers système Windows
 Thumbs.db
 Desktop.ini
