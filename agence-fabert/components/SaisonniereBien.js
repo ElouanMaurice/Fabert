@@ -35,9 +35,18 @@ const SaisonniereBien = ({ saison }) => {
           </Carousel>
         </div>
         <div className={styles.propertyCardInfo}>
-          <h3>{saison.title}</h3>
-          <p>Loyer semaine : {saison.price} €</p>
-        </div>
+           <div className={styles.titleRow}>
+    <h3>{saison.title}</h3>
+    <div className={styles.pricesaison}> {saison.price}€/semaine</div>
+  </div>
+           <div className={styles.infoRow}>
+            <div>Ville: {saison.location}</div>
+
+             <div>Surface: {saison.surface}m²</div>
+             <div>Chambres: {saison.bedrooms}</div>
+             <div>Réf: {saison.reference}</div>
+           </div>
+         </div>
       {/* </Link> */}
       <Link href={`/saisonnieredetail/${saison._id}`}>
         <button className={styles.button}>Voir Détails</button>

@@ -19,15 +19,39 @@
 }
 
 .propertyCardInfo h3 {
-  font-size: 1.5rem;
-  margin: 10px 0;
-  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .propertyCardInfo p {
-  color: #777;
-  margin: 5px 0;
-  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.propertyCardInfo p span {
+  font-weight: 600;
+  color: #333;
+}
+
+.propertyCardInfo .infoRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.propertyCardInfo .infoRow div {
+  background-color: #eef4ee;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2c6e49;
 }
 
 .button {

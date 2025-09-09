@@ -34,15 +34,19 @@ const AchatBien = ({ property }) => {
 
       {/* ✅ On clique ici pour aller voir les détails */}
       <Link href={`/achatdetail/${property._id}`} style={{ textDecoration: "none", color: "inherit" }}>
-        <div className={styles.propertyCardInfo}>
-          <h3>{property.title}</h3>
-          <p>{property.location}</p>
-          <p>{property.price}€</p>
-         <p>{property.surface}m²</p>
-          <p>Réf : {property.reference}</p> 
- 
-         
-        </div>
+         <div className={styles.propertyCardInfo}>
+         <div className={styles.titleRow}>
+    <h3>{property.title}</h3>
+    <div className={styles.price}> {property.price}€</div>
+  </div>
+  <div className={styles.infoRow}>
+    <div>Ville: {property.location}</div>
+    <div>Surface: {property.surface}m²</div>
+    <div>Pièces: {property.rooms}</div>
+    <div>Chambres: {property.bedrooms}</div>
+    <div>Réf: {property.reference}</div>
+  </div>
+</div>
       </Link>
 
       <Link href={`/achatdetail/${property._id}`}>

@@ -1,4 +1,5 @@
 import styles from '../styles/BienCard.module.css';
+
 import React from "react";
 import Link from "next/link";
 import { Carousel } from 'react-responsive-carousel';
@@ -34,9 +35,17 @@ const LocativeBien = ({ location }) => {
           </Carousel>
         </div>
         <div className={styles.propertyCardInfo}>
-          <h3>{location.title}</h3>
-          <p>Loyer semaine : {location.price} €</p>
-        </div>
+           <div className={styles.titleRow}>
+    <h3>{location.title}</h3>
+    <div className={styles.price}> {location.price}€</div>
+  </div>
+           <div className={styles.infoRow}>
+              <div>Ville: {location.location}</div>
+             <div>Surface: {location.surface}m²</div>
+             <div>Pièces: {location.rooms}</div>
+             <div>Réf: {location.reference}</div>
+           </div>
+         </div>
       {/* </Link> */}
       <Link href={`/locativedetail/${location._id}`}>
         <button className={styles.button}>Voir Détails</button>
