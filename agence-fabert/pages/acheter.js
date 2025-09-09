@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 
 const Acheter = () => {
   const [properties, setProperties] = useState([]);
+ const [loading, setLoading] = React.useState(true);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [filters, setFilters] = useState({
     types: [],
@@ -18,24 +19,24 @@ const Acheter = () => {
 
   // Récupérer les biens depuis l'API lorsque le composant est monté
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        // Assure-toi que l'URL est correcte pour récupérer les biens
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`);
-        if (!response.ok) {
-          throw new Error("Erreur lors du chargement des biens");
-        }
-        const data = await response.json();
-        console.log("Biens récupérés :", data);  // Ajout du console.log pour debug
-        setProperties(data); // Met à jour les propriétés
-        setFilteredProperties(data); // Applique les filtres sur les propriétés dès le début
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    fetchProperties();
-  }, []);
+  const fetchProperties = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`);
+      if (!response.ok) throw new Error("Erreur lors du chargement des biens");
+      const data = await response.json();
+      setProperties(data);
+      setFilteredProperties(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProperties();
+}, []);
+
 
   // Appliquer les filtres aux propriétés
   useEffect(() => {
@@ -82,6 +83,10 @@ const Acheter = () => {
     applyFilters();
   }, [filters, properties]);
 
+
+
+
+
   return (
     <div>
       <Header />
@@ -97,7 +102,7 @@ const Acheter = () => {
 
           {/* Liste des propriétés à droite */}
           <div className={styles.content}>
-            <AchatBienList properties={filteredProperties} />
+            <AchatBienList properties={filteredProperties} loading={loading}/>
           </div>
         </div>
       </div>

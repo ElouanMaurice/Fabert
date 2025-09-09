@@ -3,11 +3,11 @@ import LocativeBien from "./LocativeBien";
 import styles from '../styles/LocativeBienList.module.css';
 import BienCount from "./BienCount";
 
-export default function LocativeBienList({ locations }) {
+export default function LocativeBienList({ locations, loading }) {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
-              <BienCount count={locations.length} />
+        <BienCount count={locations.length} loading={loading}/>
             </div>
     <div className={styles.propertyGrid}>
       {locations.map((loc) => (

@@ -5,11 +5,11 @@ import BienCount from "./BienCount";
 
 
 
-const AchatBienList = ({ properties }) => {
+const AchatBienList = ({ properties, loading  }) => {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
-        <BienCount count={properties.length} />
+        <BienCount count={properties.length} loading={loading}/>
       </div>
     <div className={styles.propertyGrid}>
 

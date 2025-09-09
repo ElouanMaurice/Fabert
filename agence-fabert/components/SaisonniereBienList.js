@@ -4,14 +4,14 @@ import styles from '../styles/SaisonniereBienList.module.css';
 import BienCount from "./BienCount";
 
 
-const SaisonniereBienList = ({ saisonnieres }) => {
+const SaisonniereBienList = ({ saisonnieres, loading }) => {
   if (!saisonnieres || !Array.isArray(saisonnieres)) {
     return <p>Aucun bien locatif disponible.</p>;
   }
   return (
     <div>
        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
-        <BienCount count={saisonnieres.length} />
+        <BienCount count={saisonnieres.length} loading={loading}/>
       </div>
     <div className={styles.propertyGrid}>
       {saisonnieres.map((saison) => (
