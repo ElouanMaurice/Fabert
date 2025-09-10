@@ -8,6 +8,10 @@ const PropertySchema = new mongoose.Schema({
   type: { type: String, required: true },
   surface: { type: Number },
   rooms: { type: Number },
+  chambres: { type: Number },
+  bathrooms: { type: Number },
+  wc: { type: Number },
+
   description: { type: String },
   reference: { type: String, required: true },
 
@@ -22,20 +26,20 @@ const PropertySchema = new mongoose.Schema({
   hotWater: { type: String },
 
   // Équipements & prestations
-  balcony: { type: Boolean },
-  terrace: { type: Boolean },
+  balcon: { type: Boolean },
+  terrasse: { type: Boolean },
   garage: { type: Boolean },
   parking: { type: Boolean },
-  cellar: { type: Boolean },
-  elevator: { type: Boolean },
-  intercom: { type: Boolean },
-  pool: { type: Boolean },
-  garden: { type: Boolean },
-  airConditioning: { type: Boolean },
+  cave: { type: Boolean },
+  ascenseur: { type: Boolean },
+  interphone: { type: Boolean },
+  piscine: { type: Boolean },
+  jardin: { type: Boolean },
+  climatisation: { type: Boolean },
 
   // Informations administratives
-  charges: { type: Number },
-  propertyTax: { type: Number },
+  charge: { type: Number },
+  taxe: { type: Number },
   coOwnership: { type: Boolean },
   numberOfLots: { type: Number },
   energyRating: { type: String },

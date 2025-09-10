@@ -43,7 +43,7 @@ const LocativeBien = ({ location }) => {
               <div>Ville: {location.location}</div>
              <div>Surface: {location.surface}m²</div>
              <div>Pièces: {location.rooms}</div>
-             <div>Réf: {location.reference}</div>
+    <div className={styles.reference}>Réf: {location.reference}</div> 
            </div>
          </div>
       {/* </Link> */}

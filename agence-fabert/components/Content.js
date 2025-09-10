@@ -17,21 +17,21 @@ const Content = () => {
     
       <div className={styles.explication}>
         <div className={styles.gestionlocative}>
-        <img src="/prestation.jpeg" alt="Gestion locative" className={styles.prestationImage} />
+        <img src="/locative.png" alt="Gestion locative" className={styles.prestationImage} />
           <h2 className={styles.h2}>Gestion locative</h2>
           <p>Confiez-nous la gestion complète de votre bien. Nous nous occupons de la recherche de locataires, de l’administratif et de l’entretien pour une location en toute sérénité.</p>
-          <div className={styles.boutonbien}>Voir nos locations</div>
+           <Link className={styles.boutonbien}  href="/louer">Voir nos locations</Link>
         </div>
 
         <div className={styles.gestionsaisonniere}>
-        <img src="/prestation.jpeg" alt="Gestion locative" className={styles.prestationImage} />
+        <img src="/saison.png" alt="Gestion locative" className={styles.prestationImage} />
           <h2 className={styles.h2}>Location saisonnière</h2>
           <p>Optimisez vos revenus en louant votre bien en courte durée. Nous gérons les réservations, l’accueil des voyageurs et l’entretien pour une expérience sans souci.</p>
-          <div className={styles.boutonbien}>Voir nos locations</div>
+           <Link className={styles.boutonbien}  href="/louer">Voir nos locations</Link>
         </div>
 
         <div className={styles.conciergerie}>
-        <img src="/prestation.jpeg" alt="Gestion locative" className={styles.prestationImage} />
+        <img src="/conciergerie.png" alt="Gestion locative" className={styles.prestationImage} />
           <h2 className={styles.h2}>Conciergerie</h2>
           <p>Un service sur-mesure pour les propriétaires et voyageurs : ménage, linge, accueil et assistance personnalisée, pour une tranquillité totale.</p>
         </div>
@@ -40,28 +40,42 @@ const Content = () => {
         <img src="/prestation.jpeg" alt="Gestion locative" className={styles.prestationImage} />
           <h2 className={styles.h2}>Achat d'un bien</h2>
           <p>Vous cherchez à investir sur l’Île de Ré ? Nous vous accompagnons à chaque étape, de la sélection du bien jusqu’à la signature de l’acte de vente.</p>
-          <p onClick={() => window.location.href = '/acheter'} className={styles.boutonbien}>Voir nos biens</p> {/* Utilisation du <p> pour la navigation */}
+           <Link className={styles.boutonbien}  href="/acheter">Voir nos locations</Link>
         </div>
       </div>
       
      
-      <div className={styles.presentation}>
+     <div className={styles.presentation}>
   <div className={styles.texte}>
-    KTI Immo – Votre partenaire immobilier sur l'Île de Ré
-    <br />
-    Fondée par Cathy Fabert, KTI Immo est une agence immobilière locale engagée à vous accompagner de manière personnalisée dans tous vos projets d’achat, de vente ou de location sur l’Île de Ré. Grâce à une connaissance fine du marché et une approche humaine, professionnelle et transparente, nous mettons tout en œuvre pour vous aider à concrétiser vos rêves immobiliers en toute sérénité.
-    <br />
-    Que vous soyez à la recherche d’une maison de vacances, d’un investissement ou d’un bien à vendre, KTI Immo est votre interlocuteur de confiance pour profiter pleinement de cette île unique.
+    <h3 className={styles.presentationTitle}>
+      KTI Immo – Votre partenaire immobilier sur l'Île de Ré
+    </h3>
+    <p>
+      <span className={styles.lead}>Fondée par Cathy Fabert</span>, KTI Immo est une agence
+      immobilière locale engagée à vous accompagner de manière personnalisée dans tous vos
+      projets d’achat, de vente ou de location sur l’Île de Ré.
+    </p>
+    <p>
+      Grâce à une <strong>connaissance fine du marché</strong> et une approche humaine,
+      professionnelle et transparente, nous mettons tout en œuvre pour vous aider à concrétiser
+      vos rêves immobiliers en toute sérénité.
+    </p>
+    <p>
+      Que vous soyez à la recherche d’une maison de vacances, d’un investissement ou d’un bien à
+      vendre, <strong>KTI Immo est votre interlocuteur de confiance</strong> pour profiter
+      pleinement de cette île unique.
+    </p>
 
     <div className={styles.textCenterButton}>
-  <Link href='agence' legacyBehavior>
-    <a className={styles.boutonbienPresentation}>En savoir plus</a>
-  </Link>
-</div>
+      <Link href="agence" legacyBehavior>
+        <a className={styles.boutonbienPresentation}>En savoir plus</a>
+      </Link>
+    </div>
   </div>
 
   <img className={styles.photofb} src="/photopré.jpg" alt="Photo de Présentation" />
 </div>
+
           </div>
          
   );

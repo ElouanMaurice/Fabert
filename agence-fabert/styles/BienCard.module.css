@@ -14,8 +14,7 @@
 
 .propertyCardInfo {
   padding: 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
-  border: 1px solid #ddd;
+
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -95,7 +94,17 @@
   font-weight: 500;
   color: #2c6e49;
 }
-
+.propertyCardInfo .infoRow .reference {
+  width: 100%;       /* force sur une ligne à part */
+  background-color: #eef4ee;
+  color: #2c6e49;        /* tu peux changer la couleur si tu veux */
+  font-size: 1rem;
+  font-style: italic;
+  text-align: left;  /* ou center si tu préfères */
+}
+.semaine {
+font-size: small;
+}
 .carouselWrapper {
   width: 100%;
   overflow: hidden;

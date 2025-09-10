@@ -12,7 +12,18 @@
 
 .h1 {
     color: #2c6e49;
+    
 }
+.h1::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 5px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #8EA88C 0%, #2c6e49 100%);
+  margin-top: 8px;
+}
+
 
 .h2 {
 color: #8EA88C;
@@ -45,46 +56,69 @@ color: #8EA88C;
  
 
 
-
 .boutonbien {
-    border: 1.5px solid #8EA88C; /* Bordure de 2px avec couleur */
-    background-color: #8EA88C;
-    color: white;
-    border-radius: 8px; /* Coins arrondis */
-    margin-left: 30%;
-    margin-right: 30%;
-    transition: transform 0.3s ease-in-out;
-    text-decoration: none;  /* Annule le soulignement du lien */
-    cursor: pointer;
-
+  display: inline-block;
+  text-align: center;
+  padding: 12px 24px;
+  border: 1.5px solid #8EA88C;
+  background-color: #8EA88C;
+  color: white;
+  border-radius: 8px;
+  margin: 20px auto;   /* centre le bouton horizontalement */
+  transition: all 0.3s ease-in-out;
+  text-decoration: none; /* enlève le soulignement */
+  cursor: pointer;
 }
-
-
-
 
 .boutonbien:hover {
-    transform: scale(1.05); /* Effet zoom au survol*/
-    text-decoration: none;  /* Annule le soulignement du lien */
-
-}
-
-.boutonbien1 {
-  border: 1.5px solid #8EA88C; /* Bordure de 2px avec couleur */
-    background-color: #8EA88C;
-    color: white;
-    border-radius: 8px; /* Coins arrondis */
-    margin-left: 30%;
-    margin-right: 30%;
-    transition: transform 0.3s ease-in-out;
-    text-decoration: none;  /* Annule le soulignement du lien */
-}
-
-.boutonbien1:hover {
-  transform: scale(1.05); /* Effet zoom au survol*/
-    text-decoration: none;  /* Annule le soulignement du lien */
+  background-color: #7a9678; /* un peu plus clair au hover */
+  transform: scale(1.05);   /* effet zoom */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 
+
+
+
+.texte {
+  max-width: 800px;           /* largeur max pour lisibilité */
+  margin: 40px auto;          /* centré avec espace autour */
+  font-size: 1.1rem;          /* un peu plus grand que le body */
+  line-height: 1.8;           /* espacement entre lignes pour aérer */
+  color: #333;                /* gris foncé lisible */
+  text-align: justify;        /* bloc bien aligné */
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.texte strong {
+  color: #8EA88C;             /* mettre en valeur les mots importants */
+}
+
+.textCenterButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.boutonbienPresentation {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1.5px solid #8EA88C;
+  background-color: #8EA88C;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.boutonbienPresentation:hover {
+  background-color: #7a9678; /* un peu plus clair */
+  transform: translateY(-2px); /* petit effet "lévitation" */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
 
 
 
@@ -264,4 +298,21 @@ margin:auto;
   margin-bottom: 15px;
 }
 
- 
+ .presentationTitle {
+  font-size: 1.8rem;
+  color: #2c6e49;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  position: relative;
+}
+
+.presentationTitle::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 5px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #8EA88C 0%, #2c6e49 100%);
+  margin-top: 8px;
+}
+

@@ -15,27 +15,27 @@ export default function Ajouter() {
     images: [],
     surface: '',
     rooms: '',
-    bedrooms: '',
+    chambres: '',
     bathrooms: '',
+        wc: '',
+
     floor: '',
     yearBuilt: '',
     description: '',
     heatingType: '',
     energyRating: '',
-    propertyTax: '',
-    charges: '',
-    balcony: false,
-    terrace: false,
+    taxe: '',
+    charge: '',
+    balcon: false,
+    terrasse: false,
     garage: false,
     parking: false,
-    cellar: false,
-    elevator: false,
-    intercom: false,
-    pool: false,
-    garden: false,
-    airConditioning: false,
-    coOwnership: false,
-    numberOfLots: '',
+    captureEvents: false,
+    ascenseur: false,
+    interphone: false,
+    piscine: false,
+    jardin: false,
+    
     ges: '',
   });
 
@@ -51,10 +51,11 @@ export default function Ajouter() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+   setForm((prev) => ({
+  ...prev,
+  [name]: type === 'checkbox' ? checked : type === 'number' ? Number(value) : value,
+}));
+
   };
 
   const handleImageChange = async (e) => {
@@ -125,13 +126,23 @@ export default function Ajouter() {
         </select>
         <input name="price" placeholder="Prix (€)" type="number" onChange={handleChange} required className={styles.input} />
         <input name="type" placeholder="Type de bien (Maison, Appartement…)" onChange={handleChange} className={styles.input} />
+ 
+ 
+ <textarea
+          name="description"
+          placeholder="Description du bien"
+          onChange={handleChange}
+          rows="4"
+          className={styles.textarea}
+        />
+
 
         <h2 className={styles.sectionTitle}>Informations générales</h2>
         <input name="surface" placeholder="Surface habitable (m²)" type="number" onChange={handleChange} className={styles.input} />
         <input name="rooms" placeholder="Nombre de pièces" type="number" onChange={handleChange} className={styles.input} />
-        <input name="bedrooms" placeholder="Nombre de chambres" type="number" onChange={handleChange} className={styles.input} />
+        <input name="chambres" placeholder="Nombre de chambres" type="number" onChange={handleChange} className={styles.input} />
         <input name="bathrooms" placeholder="Nombre de salles de bain" type="number" onChange={handleChange} className={styles.input} />
-        <input name="floor" placeholder="Étage (si applicable)" onChange={handleChange} className={styles.input} />
+        <input name="wc" placeholder="Nombre de WC" type="number" onChange={handleChange} className={styles.input} />
 
         <h2 className={styles.sectionTitle}>Caractéristiques</h2>
         <input name="yearBuilt" placeholder="Année de construction" type="number" onChange={handleChange} className={styles.input} />
@@ -148,29 +159,21 @@ export default function Ajouter() {
 
         <h2 className={styles.sectionTitle}>Équipements</h2>
         <label><input type="checkbox" name="garage" onChange={handleChange} /> Garage</label>
-        <label><input type="checkbox" name="garden" onChange={handleChange} /> Jardin</label>
-        <label><input type="checkbox" name="pool" onChange={handleChange} /> Piscine</label>
-        <label><input type="checkbox" name="terrace" onChange={handleChange} /> Terrasse</label>
-        <label><input type="checkbox" name="balcony" onChange={handleChange} /> Balcon</label>
+        <label><input type="checkbox" name="jardin" onChange={handleChange} /> Jardin</label>
+        <label><input type="checkbox" name="piscine" onChange={handleChange} /> Piscine</label>
+        <label><input type="checkbox" name="terrasse" onChange={handleChange} /> Terrasse</label>
+        <label><input type="checkbox" name="balcon" onChange={handleChange} /> Balcon</label>
         <label><input type="checkbox" name="parking" onChange={handleChange} /> Parking</label>
-        <label><input type="checkbox" name="cellar" onChange={handleChange} /> Cave</label>
-        <label><input type="checkbox" name="elevator" onChange={handleChange} /> Ascenseur</label>
-        <label><input type="checkbox" name="intercom" onChange={handleChange} /> Interphone</label>
-        <label><input type="checkbox" name="airConditioning" onChange={handleChange} /> Climatisation</label>
+        <label><input type="checkbox" name="cave" onChange={handleChange} /> Cave</label>
+        <label><input type="checkbox" name="ascenseur" onChange={handleChange} /> Ascenseur</label>
+        <label><input type="checkbox" name="interphone" onChange={handleChange} /> Interphone</label>
+        <label><input type="checkbox" name="climatisation" onChange={handleChange} /> Climatisation</label>
 
         <h2 className={styles.sectionTitle}>Informations administratives</h2>
-        <input name="charges" placeholder="Charges mensuelles (€)" type="number" onChange={handleChange} className={styles.input} />
-        <input name="propertyTax" placeholder="Taxe foncière (€)" type="number" onChange={handleChange} className={styles.input} />
-        <label><input type="checkbox" name="coOwnership" onChange={handleChange} /> Copropriété</label>
-        <input name="numberOfLots" placeholder="Nombre de lots (si copropriété)" type="number" onChange={handleChange} className={styles.input} />
+        <input name="charge" placeholder="Charges mensuelles (€)" type="number" onChange={handleChange} className={styles.input} />
+        <input name="taxe" placeholder="Taxe foncière (€)" type="number" onChange={handleChange} className={styles.input} />
 
-        <textarea
-          name="description"
-          placeholder="Description du bien"
-          onChange={handleChange}
-          rows="4"
-          className={styles.textarea}
-        />
+       
 
         <label className={styles.label}>Ajoutez plusieurs photos :</label>
         <button

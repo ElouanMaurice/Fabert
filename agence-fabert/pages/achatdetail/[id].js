@@ -21,7 +21,6 @@ const AchatDetail = ({ property }) => {
         ← Retour aux biens en vente
       </button>
       <div className={styles.publication}>
-        <h1 className={styles.title}>{property.title}</h1>
 
         {/* Carousel images */}
         {property.images && property.images.length > 0 ? (
@@ -46,57 +45,64 @@ const AchatDetail = ({ property }) => {
           <img className={styles.image} src="/placeholder.png" alt="Pas d'image" />
         )}
 
-        {/* Bloc informations générales */}
-<div className={styles.infoSection}>
-  <h3 className={styles.sectionTitle}>Informations générales</h3>
-  <p><strong>Localisation :</strong> <span className={styles.infoValue}>{property.location}</span></p>
-  <p><strong>Prix :</strong> <span className={styles.infoValue}>{property.price} €</span></p>
-  <p><strong>Type :</strong> <span className={styles.infoValue}>{property.type}</span></p>
-  <p><strong>Surface :</strong> <span className={styles.infoValue}>{property.surface ?? "N/A"} m²</span></p>
-  <p><strong>Pièces :</strong> <span className={styles.infoValue}>{property.rooms ?? "N/A"}</span></p>
-  <p><strong>Description :</strong> <span className={styles.infoValue}>{property.description || "Pas de description."}</span></p>
-  <p className={styles.reference}>Référence {location.reference}</p>
+         <div className={styles.detailsCard}>
+      {/* En-tête avec titre + prix */}
+      <div className={styles.header}>
+        <h1 className={styles.title}>{property.title}</h1>
+        <div className={styles.price}>{property.price} €</div>
+      </div>
+
+{/* Infos principales en étiquettes */}
+      <div className={styles.infoRow}>
+        <div>Ville: {property.location}</div>
+        <div>Surface: {property.surface ?? "N/A"} m²</div>
+        <div>Pièces: {property.rooms ?? "N/A"}</div>
+        <div>Chambre: {property.chambres ?? "N/A"}</div>
+        <div>Salle de bain: {property.bathrooms ?? "N/A"} </div>
+        <div>Wc: {property.wc ?? "N/A"}</div>
+
+
+        <div>Type: {property.type}</div>
+      </div>
+
+      {/* Description */}
+      <div className={styles.description}>
+        <h3>Description</h3>
+        <p>{property.description || "Pas de description."}</p>
+      </div>
+
+      {/* Caractéristiques */}
+      <div className={styles.infoSection}>
+        <h3>Caractéristiques</h3>
+        <div className={styles.infoGrid}>
+          <div>Année: {property.yearBuilt ?? "N/A"}</div>
+         
+          <div>Chauffage: {property.heatingType || "N/A"}</div>
+        </div>
+      </div>
+
+      {/* Équipements */}
+      <div className={styles.infoSection}>
+        <h3>Équipements & prestations</h3>
+        <div className={styles.infoGrid}>
+          <div>Balcon: {property.balcon ? "Oui" : "Non"}</div>
+          <div>Terrasse: {property.terrasse ? "Oui" : "Non"}</div>
+          <div>Garage: {property.garage ? "Oui" : "Non"}</div>
+          <div>Parking: {property.parking ? "Oui" : "Non"}</div>
+          <div>Cave: {property.cave ? "Oui" : "Non"}</div>
+          <div>Ascenseur: {property.ascenseur ? "Oui" : "Non"}</div>
+          <div>Piscine: {property.piscine ? "Oui" : "Non"}</div>
+          <div>Jardin: {property.jardin ? "Oui" : "Non"}</div>
+        </div>
+      </div>
+
+
+
+      {/* Référence isolée */}
+      <p className={styles.reference}>Réf: {property.reference}</p>
 
 </div>
 
-{/* Bloc caractéristiques */}
-<div className={styles.infoSection}>
-  <h3 className={styles.sectionTitle}>Caractéristiques</h3>
-  <p><strong>Année de construction :</strong> <span className={styles.infoValue}>{property.yearBuilt ?? "N/A"}</span></p>
-  <p><strong>Étage :</strong> <span className={styles.infoValue}>{property.floor ?? "N/A"} / {property.totalFloors ?? "N/A"}</span></p>
-  <p><strong>Exposition :</strong> <span className={styles.infoValue}>{property.exposure || "N/A"}</span></p>
-  <p><strong>Vue :</strong> <span className={styles.infoValue}>{property.view || "N/A"}</span></p>
-  <p><strong>Type de chauffage :</strong> <span className={styles.infoValue}>{property.heatingType || "N/A"}</span></p>
-  <p><strong>Eau chaude :</strong> <span className={styles.infoValue}>{property.hotWater || "N/A"}</span></p>
-</div>
-
-{/* Équipements & prestations */}
-<div className={styles.infoSection}>
-  <h3 className={styles.sectionTitle}>Équipements & prestations</h3>
-  <ul className={styles.equipmentList}>
-    <li>Balcon : {property.balcony ? "Oui" : "Non"}</li>
-    <li>Terrasse : {property.terrace ? "Oui" : "Non"}</li>
-    <li>Garage : {property.garage ? "Oui" : "Non"}</li>
-    <li>Parking : {property.parking ? "Oui" : "Non"}</li>
-    <li>Cave : {property.cellar ? "Oui" : "Non"}</li>
-    <li>Ascenseur : {property.elevator ? "Oui" : "Non"}</li>
-    <li>Interphone : {property.intercom ? "Oui" : "Non"}</li>
-    <li>Piscine : {property.pool ? "Oui" : "Non"}</li>
-    <li>Jardin : {property.garden ? "Oui" : "Non"}</li>
-    <li>Climatisation : {property.airConditioning ? "Oui" : "Non"}</li>
-  </ul>
-</div>
-
-{/* Informations administratives */}
-<div className={styles.infoSection}>
-  <h3 className={styles.sectionTitle}>Informations administratives</h3>
-  <p><strong>Charges :</strong> <span className={styles.infoValue}>{property.charges ?? "N/A"} €</span></p>
-  <p><strong>Taxe foncière :</strong> <span className={styles.infoValue}>{property.propertyTax ?? "N/A"} €</span></p>
-  <p><strong>Copropriété :</strong> <span className={styles.infoValue}>{property.coOwnership ? "Oui" : "Non"}</span></p>
-  <p><strong>Nombre de lots :</strong> <span className={styles.infoValue}>{property.numberOfLots ?? "N/A"}</span></p>
-  <p><strong>Classe énergie :</strong> <span className={styles.infoValue}>{property.energyRating || "N/A"}</span></p>
-  <p><strong>GES :</strong> <span className={styles.infoValue}>{property.ges || "N/A"}</span></p>
-</div>
 
         <Link href="/contact" passHref>
           <button className={styles.contactButton}>Contacter l'agence</button>
@@ -117,6 +123,7 @@ export async function getServerSideProps({ params }) {
     if (!res.ok) throw new Error("Bien non trouvé");
 
     const property = await res.json();
+        console.log("Données récupérées de l'API :", property);
     return { props: { property } };
   } catch (error) {
     return { notFound: true };

@@ -1,165 +1,219 @@
-/* Container global centré et padding */
+/* Container global */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  text-align: center;
-}
-
-/* Wrapper publication */
-.publication {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 24px;
+  background: linear-gradient(to bottom, #f8f9f8, #f3f4f3);
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  text-align: left;
 }
 
 /* Bouton retour */
 .backButton {
-  padding: 10px 15px;
-  background-color: #8EA88C;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.backButton:hover {
-  background-color: #2c6e49;
-}
-
-/* Titre du bien */
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 20px 0;
-  color: #333;
-}
-
-/* Localisation */
-.location {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-/* Prix */
-.price {
-  font-size: 1.5rem;
-  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  background: #f2f6f3;
   color: #2c6e49;
-  margin-bottom: 20px;
-}
-
-/* Surface et pièces */
-.surface,
-.rooms {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 5px;
-}
-
-/* Description */
-.description {
-  font-size: 1.1rem;
-  color: #777;
-  margin: 20px 0;
-  max-width: 800px;
-}
-
-/* Bouton contact */
-.contactButton {
-  padding: 12px 20px;
-  background-color: #8EA88C;
-  color: white;
+  font-weight: 600;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.contactButton:hover {
-  background-color: #2c6e49;
-}
-
-/* Image de fallback */
-.image {
-  width: 100%;
-  max-width: 900px;
-  height: auto;
   border-radius: 8px;
-  margin-bottom: 20px;
-  object-fit: cover;
-  display: block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.backButton:hover {
+  background: #2c6e49;
+  color: #fff;
 }
 
-/* Carousel wrapper */
-.carouselWrapper {
-  max-width: 900px;
-  margin: 0 auto 30px;
-  width: 100%;
-}
-
-/* React Slick - structure du slider */
-.carousel :global(.slick-slider) {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  user-select: none;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.carousel :global(.slick-list) {
-  overflow: hidden;
-}
-
-.carousel :global(.slick-track) {
-  display: flex !important;
-  align-items: center;
-}
-
+/* Carousel */
 .carousel :global(.slick-slide) {
   display: flex !important;
   justify-content: center;
   align-items: center;
-  outline: none;
 }
-
-/* Image du slide */
+.slide {
+  width: 100%;
+  max-width: 900px;
+  min-height: 420px;
+  max-height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 14px;
+  margin: 30px;
+}
 .slideImage {
   width: 100%;
-  height: 300px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 10px;
-  display: block;
+  border-radius: 14px;
+  transition: transform 0.4s ease;
 }
-
-/* Flèches du carousel */
+.slideImage:hover {
+  transform: scale(1.03);
+}
 .carousel :global(.slick-prev),
 .carousel :global(.slick-next) {
-  background-color: white;
   border-radius: 50%;
-  width: 0px;
-  height: 0px;
-  z-index: 10;
+  width: 40px;
+  height: 40px;
+  z-index: 30;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0 rgba(0,0,0,0.3);
-  opacity: 1;
-  transition: background-color 0.7s ease;
+  transition: background 0.3s ease;
 }
-
-
-
+.carousel :global(.slick-prev) {
+  left: -50px;
+}
+.carousel :global(.slick-next) {
+  right: -50px;
+}
 .carousel :global(.slick-prev:before),
 .carousel :global(.slick-next:before) {
-  font-size: 24px;
+  font-size: 30px;
+  color: #8EA88C;
+}
+
+/* Carte détails */
+.detailsCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  margin-top: 40px;
+  animation: fadeInUp 0.5s ease;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.header h1 {
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: #1f1f1f;
+}
+.price {
+  font-size: 1.6rem;
+  font-weight: 700;
   color: #2c6e49;
+  background: #eef7ef;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.05);
+}
+
+/* Infos principales */
+.infoRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.infoRow div {
+  background: #eef4ee;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2c6e49;
+  transition: all 0.3s ease;
+}
+.infoRow div:hover {
+  background: #dce8dc;
+}
+
+/* Sections */
+.description h3,
+.infoSection h3 {
+  font-size: 1.2rem;
+  color: #2c6e49;
+  margin-bottom: 10px;
+  border-left: 4px solid #8EA88C;
+  padding-left: 8px;
+}
+.description p {
+  line-height: 1.6;
+  color: #444;
+}
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+.infoGrid div {
+  background: #fafafa;
+  border: 1px solid #e9e9e9;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.infoGrid div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
+
+/* Référence */
+.reference {
+  margin-top: 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #b22222;
+  background: #fdeaea;
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* Bouton contact */
+.contactButton {
+  display: inline-block;
+  margin-top: 26px;
+  margin-right: auto;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #8EA88C, #2c6e49);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contactButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (min-width: 600px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .slideImage {
+    height: 480px;
+  }
+}
+@media (min-width: 900px) {
+  .slideImage {
+    height: 560px;
+  }
 }

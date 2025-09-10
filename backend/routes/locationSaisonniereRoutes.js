@@ -2,6 +2,7 @@ const express = require("express");
 const LocationSaisonniere = require("../models/LocationSaisonniere");
 const router = express.Router();
 
+// GET all
 router.get("/", async (req, res) => {
   try {
     const data = await LocationSaisonniere.find();
@@ -11,6 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET by ID
 router.get("/:id", async (req, res) => {
   try {
     const item = await LocationSaisonniere.findById(req.params.id);
@@ -21,6 +23,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// POST create
 router.post("/", async (req, res) => {
   try {
     const newItem = new LocationSaisonniere(req.body);
@@ -31,6 +34,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// PUT update
 router.put("/:id", async (req, res) => {
   try {
     const updated = await LocationSaisonniere.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -41,6 +45,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// DELETE
 router.delete("/:id", async (req, res) => {
   try {
     const deleted = await LocationSaisonniere.findByIdAndDelete(req.params.id);
