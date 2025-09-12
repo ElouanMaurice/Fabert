@@ -60,6 +60,8 @@ export default function AjouterLocationAnnuelle() {
     }));
   };
 
+  
+
   const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
     const uploadPromises = files.map(async (file) => {

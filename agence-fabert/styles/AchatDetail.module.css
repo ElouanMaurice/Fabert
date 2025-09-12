@@ -1,7 +1,7 @@
 /* Container global */
 .container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 24px;
   background: linear-gradient(to bottom, #f8f9f8, #f3f4f3);
   border-radius: 18px;
