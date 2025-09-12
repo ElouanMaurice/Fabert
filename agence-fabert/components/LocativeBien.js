@@ -40,10 +40,12 @@ const LocativeBien = ({ location }) => {
     <div className={styles.price}> {location.price}€</div>
   </div>
            <div className={styles.infoRow}>
-              <div>Ville: {location.location}</div>
-             <div>Surface: {location.surface}m²</div>
-             <div>Pièces: {location.rooms}</div>
-    <div className={styles.reference}>Réf: {location.reference}</div> 
+              <div>Ville : {location.location}</div>
+             <div>Surface : {location.surface}m²</div>
+             <div>Pièces : {location.rooms}</div>
+                          <div>Chambre : {location.bedrooms}</div>
+
+    <div className={styles.reference}>Réf : {location.reference}</div> 
            </div>
          </div>
       {/* </Link> */}

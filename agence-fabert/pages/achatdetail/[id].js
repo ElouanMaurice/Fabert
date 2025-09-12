@@ -57,7 +57,7 @@ const AchatDetail = ({ property }) => {
         <div>Ville: {property.location}</div>
         <div>Surface: {property.surface ?? "N/A"} m²</div>
         <div>Pièces: {property.rooms ?? "N/A"}</div>
-        <div>Chambre: {property.chambres ?? "N/A"}</div>
+        <div>Chambre: {property.chambre ?? "N/A"}</div>
         <div>Salle de bain: {property.bathrooms ?? "N/A"} </div>
         <div>Wc: {property.wc ?? "N/A"}</div>
 

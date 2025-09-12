@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 const Louer = () => {
   const router = useRouter();
-  const [typeLocation, setTypeLocation] = useState(router.query.typeLocation || 'locative');
+  const [typeLocation, setTypeLocation] = useState(router.query.typeLocation || null);
 
   // Etats pour les biens
   const [locatives, setLocatives] = useState([]);
@@ -92,28 +92,50 @@ const Louer = () => {
       <div className={styles.firstcontainer}>
         <h1 className={styles.h1}>Bienvenue sur la page des locations Kti Immo</h1>
 
-        <div className={styles.buttonContainer}>
-          <button className={`${styles.button} ${typeLocation==='locative'?styles.active:''}`} onClick={() => setTypeLocation('locative')}>Location Annuelle</button>
-          <button className={`${styles.button} ${typeLocation==='saisonniere'?styles.active:''}`} onClick={() => setTypeLocation('saisonniere')}>Location Saisonnière</button>
-        </div>
+        {!typeLocation ? (
+          <div className={styles.choiceContainer}>
+            <div className={styles.buttonContainer}>
+              <button className={styles.button} onClick={() => setTypeLocation('locative')}>
+                Location Annuelle
+              </button>
+              <button className={styles.button} onClick={() => setTypeLocation('saisonniere')}>
+                Location Saisonnière
+              </button>
 
-        <div className={styles.container}>
-          <div className={styles.sidebar}>
-            {typeLocation==='locative' ? (
-              <FilterBarLocative filters={locativeFilters} setFilters={setLocativeFilters}/>
-            ) : (
-              <FilterBarSaisonniere filters={saisonniereFilters} setFilters={setSaisonniereFilters}/>
-            )}
+            </div>
+            <div classeName={styles.choiceContainer}>
+            <h5>Choisissez le type de location...</h5>
           </div>
+          </div>
+        ) : (
+          <>
+            <div className={styles.buttonContainer}>
+              <button className={`${styles.button} ${typeLocation==='locative'?styles.active:''}`} onClick={() => setTypeLocation('locative')}>
+                Location Annuelle
+              </button>
+              <button className={`${styles.button} ${typeLocation==='saisonniere'?styles.active:''}`} onClick={() => setTypeLocation('saisonniere')}>
+                Location Saisonnière
+              </button>
+            </div>
 
-          <div className={styles.content}>
-            {typeLocation==='locative' ? (
-              <LocativeBienList locations={displayedLocatives} loading={loadingLocatives}/>
-            ) : (
-              <SaisonniereBienList saisonnieres={displayedSaisonnieres} loading={loadingSaisonnieres}/>
-            )}
-          </div>
-        </div>
+            <div className={styles.container}>
+              <div className={styles.sidebar}>
+                {typeLocation==='locative' ? (
+                  <FilterBarLocative filters={locativeFilters} setFilters={setLocativeFilters}/>
+                ) : (
+                  <FilterBarSaisonniere filters={saisonniereFilters} setFilters={setSaisonniereFilters}/>
+                )}
+              </div>
+              <div className={styles.content}>
+                {typeLocation==='locative' ? (
+                  <LocativeBienList locations={displayedLocatives} loading={loadingLocatives}/>
+                ) : (
+                  <SaisonniereBienList saisonnieres={displayedSaisonnieres} loading={loadingSaisonnieres}/>
+                )}
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </div>

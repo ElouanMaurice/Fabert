@@ -41,12 +41,13 @@ const AchatBien = ({ property }) => {
         </div>
 
         <div className={styles.infoRow}>
-          <div>Ville: {property.location}</div>
-          <div>Type: {property.type}</div>
-          <div>Surface: {property.surface}m²</div>
-          <div>Pièces: {property.rooms}</div>
-          <div>Chambres: {property.chambres}</div>
-          <div className={styles.reference}>Réf: {property.reference}</div>  </div>
+          <div>Ville : {property.location}</div>
+          <div>Type : {property.type}</div>
+          <div>Surface : {property.surface}m²</div>
+          <div>Pièces : {property.rooms}</div>
+          <div>Chambre : {property.chambre}</div>
+          <div className={styles.reference}>Réf : {property.reference}</div> 
+          </div>
       </div>
       </Link>
 

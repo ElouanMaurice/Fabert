@@ -15,10 +15,9 @@ export default function Ajouter() {
     images: [],
     surface: '',
     rooms: '',
-    chambres: '',
+    chambre: '',
     bathrooms: '',
-        wc: '',
-
+    wc: '',
     floor: '',
     yearBuilt: '',
     description: '',
@@ -49,14 +48,18 @@ export default function Ajouter() {
     "Saint-Clément-des-Baleines", "Les-Portes-en-Ré"
   ];
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-   setForm((prev) => ({
-  ...prev,
-  [name]: type === 'checkbox' ? checked : type === 'number' ? Number(value) : value,
-}));
+const handleChange = (e) => {
+  const { name, type, checked, value } = e.target;
 
-  };
+  setForm(prev => ({
+    ...prev,
+    [name]: type === 'checkbox'
+      ? checked
+      : (['price','surface','rooms','chambre','bathrooms','wc','yearBuilt','floor','totalFloors','charge','taxe'].includes(name)
+          ? Number(value)
+          : value),
+  }));
+};
 
   const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
@@ -139,8 +142,9 @@ export default function Ajouter() {
 
         <h2 className={styles.sectionTitle}>Informations générales</h2>
         <input name="surface" placeholder="Surface habitable (m²)" type="number" onChange={handleChange} className={styles.input} />
+
         <input name="rooms" placeholder="Nombre de pièces" type="number" onChange={handleChange} className={styles.input} />
-        <input name="chambres" placeholder="Nombre de chambres" type="number" onChange={handleChange} className={styles.input} />
+        <input name="chambre" placeholder="Nombre de chambre" type="number" onChange={handleChange} className={styles.input} />
         <input name="bathrooms" placeholder="Nombre de salles de bain" type="number" onChange={handleChange} className={styles.input} />
         <input name="wc" placeholder="Nombre de WC" type="number" onChange={handleChange} className={styles.input} />
 

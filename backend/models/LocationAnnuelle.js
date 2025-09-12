@@ -9,7 +9,7 @@ const LocationAnnuelleSchema = new mongoose.Schema({
   type: { type: String }, // Maison, Appartement...
   surface: { type: Number },
   rooms: { type: Number },
-  bedrooms: { type: Number },
+  chambre: { type: Number },
   bathrooms: { type: Number },
   floor: { type: Number },
   furnished: { type:String},

@@ -9,7 +9,7 @@ const LocationSaisonniereSchema = new mongoose.Schema({
   type: { type: String }, // Maison, Appartement...
   surface: { type: Number },
   rooms: { type: Number },
-  bedrooms: { type: Number },
+  chambre: { type: Number },
   bathrooms: { type: Number },
   floor: { type: Number },
   capacity: { type: Number },

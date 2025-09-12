@@ -8,7 +8,8 @@ const PropertySchema = new mongoose.Schema({
   type: { type: String, required: true },
   surface: { type: Number },
   rooms: { type: Number },
-  chambres: { type: Number },
+    chambre: { type: Number },
+
   bathrooms: { type: Number },
   wc: { type: Number },
 
