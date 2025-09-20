@@ -5,9 +5,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from '../../components/Footer';
+import dynamic from 'next/dynamic';
+
+
 
 const AchatDetail = ({ property }) => {
   const router = useRouter();
+
+  const AchatDetailMap = dynamic(() => import('../../components/AchatDetailMap'), { ssr: false });
 
   if (router.isFallback) return <p>Chargement...</p>;
   if (!property) return <p>Bien non trouvé...</p>;
@@ -67,21 +72,7 @@ const AchatDetail = ({ property }) => {
               <p>{property.description || "Pas de description."}</p>
             </div>
 
-            {/* Caractéristiques */}
-            <div className={styles.infoSection}>
-              <h3>Caractéristiques</h3>
-              <div className={styles.infoGrid}>
-                <div>Année: {property.yearBuilt ?? "N/A"}</div>
-                <div>Étage: {property.floor ?? "N/A"}</div>
-                <div>Chauffage: {property.heatingType || "N/A"}</div>
-                <div>Charges: {property.charge ?? "N/A"} €</div>
-                <div>Taxe foncière: {property.taxe ?? "N/A"} €</div>
-                <div>Performance énergétique: {property.energyRating || "N/A"}</div>
-                <div>GES: {property.ges || "N/A"}</div>
-              </div>
-            </div>
-
-            {/* Équipements */}
+             {/* Équipements */}
             <div className={styles.infoSection}>
               <h3>Équipements & prestations</h3>
               <div className={styles.infoGrid}>
@@ -97,6 +88,24 @@ const AchatDetail = ({ property }) => {
                 <div>Interphone: {property.interphone ? "Oui" : "Non"}</div>
               </div>
             </div>
+
+            {/* Caractéristiques */}
+            <div className={styles.infoSection}>
+              <h3>Caractéristiques</h3>
+              <div className={styles.infoGrid}>
+                <div>Année: {property.yearBuilt ?? "N/A"}</div>
+                <div>Étage: {property.floor ?? "N/A"}</div>
+                <div>Chauffage: {property.heatingType || "N/A"}</div>
+                <div>Charges: {property.charge ?? "N/A"} €</div>
+                <div>Taxe foncière: {property.taxe ?? "N/A"} €</div>
+                <div>Performance énergétique: {property.energyRating || "N/A"}</div>
+                <div>GES: {property.ges || "N/A"}</div>
+              </div>
+            </div>
+<div className={styles.mapContainer}>
+
+<AchatDetailMap lat={property.lat} lng={property.lng} address={property.address} />
+</div>
 
             <p className={styles.reference}>Réf: {property.reference}</p>
           </div>

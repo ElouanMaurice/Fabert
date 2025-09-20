@@ -5,49 +5,85 @@
     border-bottom: 2px solid #8EA88C;
     position: sticky;
     top: 0;
-    background-color: white;
     z-index: 1000;
-    height: 125px; /* Ajuste la hauteur selon ton besoin */
-
+    height: 125px; /* hauteur par défaut */
+    padding: 0 20px; /* petit padding horizontal */
+    justify-content: space-between;
 }
 
+/* Logo à gauche */
 .logo {
     display: flex;
     justify-content: center;
-    padding-left: 3%;
-    margin-right: auto; /* Permet de coller le logo à gauche */
+    padding-left: 0;
+    margin-right: auto; 
 }
 .logoimage {
-    width: 20%; /* Adapte la taille en fonction de la largeur du parent */
-    min-width: 130px; /* Empêche le logo de devenir trop petit */
+    width: 20%;      /* largeur proportionnelle */
+    min-width: 130px; 
+    max-width: 200px; /* empêche de trop grandir sur grand écran */
     height: auto;
 }
 
-
+/* Menu centré */
 .menu {
     display: flex;
     justify-content: center; 
     align-items: center;
     background-color: white;
     height: 50px;
-    width: 90%; 
-
+    width: auto; /* s’adapte au contenu */
+    gap: 10px;   /* espace entre les items */
 }
 
-
+/* Style des liens du menu */
 .titlemenu {
     font-size: 130%;
     font-family: inherit;
     font-weight: 700;
-    text-transform: uppercase; /* Pour un effet plus structuré */
+    text-transform: uppercase; 
     text-decoration: none;
     color: #8EA88C;
-    padding: 20px 30px;
+    padding: 20px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* Responsive */
+@media (max-width: 900px) {
+    .Header {
+        flex-direction: column;
+        height: auto; /* laisse le header s’adapter */
+        padding: 10px 20px;
+    }
 
+    .logoimage {
+        width: 35%;
+        min-width: 100px;
+    }
 
+    .menu {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
 
+    .titlemenu {
+        padding: 10px 15px;
+        font-size: 110%;
+    }
+}
+
+@media (max-width: 600px) {
+    .logoimage {
+        width: 50%;
+        min-width: 80px;
+    }
+
+    .titlemenu {
+        padding: 8px 10px;
+        font-size: 100%;
+    }
+}

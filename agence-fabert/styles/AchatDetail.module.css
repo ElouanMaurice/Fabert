@@ -36,26 +36,22 @@
 /* Conteneur fixe pour uniformiser la taille */
 .slide {
   width: 100%;
-  max-width: 900px;   /* largeur max */
-  min-height: 420px;  /* hauteur minimale */
-  max-height: 420px;  /* fixe une hauteur */
+  max-width: 900px;
+  height: 560px; /* même que la max height responsive */
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;   /* évite le débordement */
+  overflow: hidden;
   border-radius: 14px;
-    margin: 30px;
-
+  margin: 30px;
 }
 
-/* Image dans le slide */
 .slideImage {
   width: 100%;
-  height: 100%;
-  object-fit: cover;   /* rempli tout le cadre */
-  border-radius: 14px;
-  transition: transform 0.4s ease;
+  height: 100%; /* toujours 100% de la boîte */
+  object-fit: cover;
 }
+
 .slideImage:hover {
   transform: scale(1.03);
 }
@@ -220,4 +216,12 @@
   .slideImage {
     height: 560px;
   }
+}
+
+
+.mapContainer {
+  width: 100%;
+  max-width: 800px; /* ou la largeur que tu veux */
+  height: 400px; /* hauteur fixe pour Leaflet */
+  margin: 0 auto; /* centrer horizontalement */
 }

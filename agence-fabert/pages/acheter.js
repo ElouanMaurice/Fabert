@@ -15,7 +15,12 @@ const Acheter = () => {
     location: "",
     minPrice: null,
     maxPrice: null,
-  });
+    surfaceMin: null,
+    surfaceMax: null,
+    chambres: null,
+    pieces: null,
+});
+
 
   // Récupérer les biens depuis l'API lorsque le composant est monté
   useEffect(() => {
@@ -25,6 +30,8 @@ const Acheter = () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`);
       if (!response.ok) throw new Error("Erreur lors du chargement des biens");
       const data = await response.json();
+            console.log("Données récupérées:", data); // <-- ici
+
       setProperties(data);
       setFilteredProperties(data);
     } catch (error) {
@@ -37,52 +44,65 @@ const Acheter = () => {
   fetchProperties();
 }, []);
 
+useEffect(() => {
+  const applyFilters = () => {
+    let filtered = [...properties]; // copier pour ne pas muter l'original
 
-  // Appliquer les filtres aux propriétés
-  useEffect(() => {
-    const applyFilters = () => {
-      let filtered = properties;
+    // 🔹 Filtre par type (saison, appartement, etc.)
+   if (filters.types && filters.types.length > 0) {
+  filtered = filtered.filter(property =>
+    filters.types.includes(property.type?.toLowerCase())
+  );
+}
 
-      // Filtre par type
-      if (filters.types.length > 0) {
-        filtered = filtered.filter(property =>
-          filters.types.includes(property.type)
-        );
-      }
 
-      // Filtre par localisation
-      if (filters.location) {
-        filtered = filtered.filter(property =>
-          property.location.toLowerCase().includes(filters.location.toLowerCase())
-        );
-      }
+    // 🔹 Filtre par localisation
+    if (filters.location) {
+      filtered = filtered.filter(property =>
+        property.location.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
 
-      // Filtre par prix
-      if (filters.minPrice !== null) {
-        filtered = filtered.filter(property => property.price >= filters.minPrice);
-      }
-      if (filters.maxPrice !== null) {
-        filtered = filtered.filter(property => property.price <= filters.maxPrice);
-      }
+    // 🔹 Filtre par prix
+    if (filters.minPrice !== null) {
+      filtered = filtered.filter(property => property.price >= filters.minPrice);
+    }
+    if (filters.maxPrice !== null) {
+      filtered = filtered.filter(property => property.price <= filters.maxPrice);
+    }
 
-      // Trier les propriétés si nécessaire
-      if (filters.sortOrder) {
-        filtered = filtered.sort((a, b) => {
-          if (filters.sortOrder === "asc") {
-            return a.price - b.price;
-          } else if (filters.sortOrder === "desc") {
-            return b.price - a.price;
-          }
-          return 0;
-        });
-      }
+    // 🔹 Filtre par surface
+    if (filters.surfaceMin !== null) {
+      filtered = filtered.filter(property => property.surface >= filters.surfaceMin);
+    }
+    if (filters.surfaceMax !== null) {
+      filtered = filtered.filter(property => property.surface <= filters.surfaceMax);
+    }
 
-      setFilteredProperties(filtered);
-    };
+    // 🔹 Filtre par chambres
+    if (filters.chambres !== null) {
+      filtered = filtered.filter(property => property.chambre >= filters.chambres);
+    }
 
-    applyFilters();
-  }, [filters, properties]);
+    // 🔹 Filtre par pièces
+    if (filters.pieces !== null) {
+      filtered = filtered.filter(property => property.rooms >= filters.pieces);
+    }
 
+    // 🔹 Tri par prix
+    if (filters.sortOrder) {
+      filtered = filtered.sort((a, b) => {
+        if (filters.sortOrder === "asc") return a.price - b.price;
+        if (filters.sortOrder === "desc") return b.price - a.price;
+        return 0;
+      });
+    }
+
+    setFilteredProperties(filtered);
+  };
+
+  applyFilters();
+}, [filters, properties]);
 
 
 
