@@ -6,6 +6,7 @@ const PropertySchema = new mongoose.Schema({
   price: { type: Number, required: true },
   type: { type: String, required: true },
   surface: { type: Number },
+  surfaceterrain: { type: Number },
   rooms: { type: Number },
   chambre: { type: Number },
   bathrooms: { type: Number },
@@ -37,7 +38,11 @@ const PropertySchema = new mongoose.Schema({
   energyRating: { type: String },
   ges: { type: String },
 
-  images: { type: [String], required: true }
+  images: { type: [String], required: true },
+
+    address: { type: String }, 
+  lat: { type: Number },
+  lng: { type: Number }
 });
 
 

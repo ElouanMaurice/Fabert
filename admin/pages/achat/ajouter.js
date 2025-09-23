@@ -1,39 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import styles from '../../styles/FormulaireAdmin.module.css';
 import Image from 'next/image';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import RecenterMap from '../../components/RecenterMap';
-
-// Leaflet côté client
-const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
-const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
-
-// Icône Leaflet
-const markerIcon = new L.Icon({
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
 
 export default function Ajouter() {
   const router = useRouter();
   const fileInputRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
-  const [markerPosition, setMarkerPosition] = useState([46.159, -1.350]);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
   const [form, setForm] = useState({
-    title: '', reference: '', price: '', type: '', location: '', address: '', lat: null, lng: null,
-    images: [], surface: '', rooms: '', chambre: '', bathrooms: '', wc: '', floor: '', yearBuilt: '',
+    title: '', reference: '', price: '', type: '', location: '', address: '',
+    images: [], surface: '', surfaceterrain:'', rooms: '', chambre: '', bathrooms: '', wc: '', floor: '', yearBuilt: '',
     description: '', heatingType: '', energyRating: '', taxe: '', charge: '', balcon: false, terrasse: false,
     garage: false, parking: false, ascenseur: false, interphone: false, piscine: false, jardin: false,
     climatisation: false, ges: '',
@@ -42,7 +21,9 @@ export default function Ajouter() {
   const locations = [
     "Rivedoux-Plage","Sainte-Marie-de-Ré","La Flotte","Saint-Martin-de-Ré",
     "Le Bois-Plage-en-Ré","La Couarde-sur-Mer","Loix","Ars-en-Ré",
-    "Saint-Clément-des-Baleines","Les-Portes-en-Ré"
+    "Saint-Clément-des-Baleines","Les-Portes-en-Ré", "La Rochelle", "Lagord", "Périgny",
+    "Dompierre-sur-Mer", "Marsilly", "Nieul-sur-Mer", "Châtelaillon-Plage",
+    "Fouras", "Aytré", "Angoulins", "L'Houmeau", "Saint-Xandre"
   ];
 
   useEffect(() => setIsClient(true), []);
@@ -57,25 +38,34 @@ export default function Ajouter() {
     }));
   };
 
+  // Autocomplete adresse (désactivé la partie lat/lng et map)
   const handleAddressChange = async (e) => {
     const address = e.target.value;
     setForm(prev => ({ ...prev, address }));
-    if (address.length < 5) return;
+
+    if (address.length < 3) {
+      setSuggestions([]);
+      return;
+    }
 
     const token = 'pk.eyJ1IjoiZWxvdWFubWF1cmljZSIsImEiOiJjbWZybjFsNDIwYnU5MmtxeHpmbjQyMjZiIn0.tAQPm55qOfTvL_IpsFinVA';
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${token}&limit=1`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?autocomplete=true&limit=5&access_token=${token}`;
 
     try {
       const res = await fetch(url);
       const data = await res.json();
-      if (data.features && data.features.length > 0) {
-        const [lng, lat] = data.features[0].center;
-        setForm(prev => ({ ...prev, lat, lng }));
-        setMarkerPosition([lat, lng]);
+      if (data.features) {
+        setSuggestions(data.features);
       }
     } catch (err) {
-      console.error('Erreur géocodage:', err);
+      console.error("Erreur autocomplete:", err);
     }
+  };
+
+  // Quand on clique sur une suggestion
+  const handleSelectSuggestion = (feature) => {
+    setForm(prev => ({ ...prev, address: feature.place_name }));
+    setSuggestions([]);
   };
 
   const handleImageChange = async (e) => {
@@ -105,7 +95,7 @@ export default function Ajouter() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.images.length) return alert("Ajoutez au moins une image !");
-    if (!form.lat || !form.lng) return alert("Adresse invalide !");
+    if (!form.address) return alert("Adresse invalide !");
 
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`, {
       method: 'POST',
@@ -129,19 +119,28 @@ export default function Ajouter() {
           <option value="">Choisissez une localisation</option>
           {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
         </select>
-        <input name="address" placeholder="Adresse complète" onChange={handleAddressChange} value={form.address} required className={styles.input} />
 
-        {/* Carte */}
-        {isClient && (
-          <div style={{ height: '300px', margin: '10px 0' }}>
-            <MapContainer center={markerPosition} zoom={15} style={{ height: '100%' }}>
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OpenStreetMap' />
-              <Marker position={markerPosition} icon={markerIcon}>
-                <Popup>{form.address}</Popup>
-              </Marker>
-              <RecenterMap position={markerPosition} />
-            </MapContainer>
-          </div>
+        {/* Champ adresse + suggestions */}
+        <input
+          name="address"
+          placeholder="Adresse complète"
+          onChange={handleAddressChange}
+          value={form.address}
+          required
+          className={styles.input}
+        />
+        {suggestions.length > 0 && (
+          <ul style={{ background: "white", border: "1px solid #ccc", marginTop: "0", padding: "5px", listStyle: "none", maxHeight: "150px", overflowY: "auto" }}>
+            {suggestions.map((s, idx) => (
+              <li
+                key={idx}
+                style={{ padding: "5px", cursor: "pointer" }}
+                onClick={() => handleSelectSuggestion(s)}
+              >
+                {s.place_name}
+              </li>
+            ))}
+          </ul>
         )}
 
         <input name="price" placeholder="Prix (€)" type="number" onChange={handleChange} required className={styles.input} />
@@ -157,10 +156,22 @@ export default function Ajouter() {
           <option value="Autre">Autre</option>
         </select>
 
-        <textarea name="description" placeholder="Description" onChange={handleChange} rows="4" className={styles.textarea} />
+<textarea
+  name="description"
+  placeholder="Description"
+  rows="4"  // hauteur de départ
+  className={styles.textarea}
+  onChange={(e) => {
+    handleChange(e);
+    e.target.style.height = "auto"; // réinitialise la hauteur
+    e.target.style.height = e.target.scrollHeight + "px"; // ajuste selon le texte
+  }}
+/>
 
         {/* Informations générales */}
         <h2 className={styles.sectionTitle}>Informations générales</h2>
+        <input name="surfaceterrain" placeholder="Surface du terrain (m²)" type="number" onChange={handleChange} className={styles.input} />
+
         <input name="surface" placeholder="Surface habitable (m²)" type="number" onChange={handleChange} className={styles.input} />
         <input name="rooms" placeholder="Nombre de pièces" type="number" onChange={handleChange} className={styles.input} />
         <input name="chambre" placeholder="Nombre de chambres" type="number" onChange={handleChange} className={styles.input} />

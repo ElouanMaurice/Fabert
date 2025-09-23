@@ -5,14 +5,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from '../../components/Footer';
-import dynamic from 'next/dynamic';
-
-
 
 const AchatDetail = ({ property }) => {
   const router = useRouter();
-
-  const AchatDetailMap = dynamic(() => import('../../components/AchatDetailMap'), { ssr: false });
 
   if (router.isFallback) return <p>Chargement...</p>;
   if (!property) return <p>Bien non trouvé...</p>;
@@ -58,21 +53,26 @@ const AchatDetail = ({ property }) => {
             {/* Infos principales */}
             <div className={styles.infoRow}>
               <div>Ville: {property.location}</div>
+              <div>Type: {property.type}</div>
+              <div>Surface Terrain: {property.surfaceterrain ?? "N/A"} m²</div>
               <div>Surface: {property.surface ?? "N/A"} m²</div>
               <div>Pièces: {property.rooms ?? "N/A"}</div>
               <div>Chambre: {property.chambre ?? "N/A"}</div>
               <div>Salle de bain: {property.bathrooms ?? "N/A"}</div>
               <div>WC: {property.wc ?? "N/A"}</div>
-              <div>Type: {property.type}</div>
             </div>
 
-            {/* Description */}
-            <div className={styles.description}>
-              <h3>Description</h3>
-              <p>{property.description || "Pas de description."}</p>
-            </div>
+           <div className={styles.description}>
+  <h3>Description</h3>
+  {property.description ? property.description.split('\n').map((line, i) => (
+    <span key={i}>
+      {line}<br />
+    </span>
+  )) : "Pas de description."}
+</div>
 
-             {/* Équipements */}
+
+            {/* Équipements */}
             <div className={styles.infoSection}>
               <h3>Équipements & prestations</h3>
               <div className={styles.infoGrid}>
@@ -102,10 +102,6 @@ const AchatDetail = ({ property }) => {
                 <div>GES: {property.ges || "N/A"}</div>
               </div>
             </div>
-<div className={styles.mapContainer}>
-
-<AchatDetailMap lat={property.lat} lng={property.lng} address={property.address} />
-</div>
 
             <p className={styles.reference}>Réf: {property.reference}</p>
           </div>

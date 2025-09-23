@@ -36,15 +36,18 @@
 /* Conteneur fixe pour uniformiser la taille */
 .slide {
   width: 100%;
-  max-width: 900px;
-  height: 560px; /* même que la max height responsive */
+  max-width: 1200px; /* plus large */
+    aspect-ratio: 16 / 9; /* garde le ratio de l’image */
+
+  height: 560px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-radius: 14px;
-  margin: 30px;
+  margin: 0 auto;
 }
+
 
 .slideImage {
   width: 100%;
@@ -224,4 +227,8 @@
   max-width: 800px; /* ou la largeur que tu veux */
   height: 400px; /* hauteur fixe pour Leaflet */
   margin: 0 auto; /* centrer horizontalement */
+}
+
+.description p {
+  white-space: pre-line;
 }

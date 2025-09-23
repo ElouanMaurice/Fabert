@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayout from '../../components/AdminLayout';
 import styles from '../../styles/FormulaireAdmin.module.css';
+import Image from "next/image";
+
 
 export default function AjouterLocationAnnuelle() {
   const [form, setForm] = useState({
@@ -21,6 +23,8 @@ export default function AjouterLocationAnnuelle() {
     propertyTax: '',
     coOwnership: false,
     numberOfLots: '',
+    meuble: false,      // Meublé
+  animaux: false, 
     garage: false,
     garden: false,
     pool: false,
@@ -36,6 +40,8 @@ export default function AjouterLocationAnnuelle() {
   });
 
   const [imagePreviews, setImagePreviews] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+
   const fileInputRef = useRef(null);
   const router = useRouter();
 
@@ -49,7 +55,9 @@ export default function AjouterLocationAnnuelle() {
     "Loix",
     "Ars-en-Ré",
     "Saint-Clément-des-Baleines",
-    "Les-Portes-en-Ré"
+    "Les-Portes-en-Ré", "La Rochelle", "Lagord", "Périgny",
+    "Dompierre-sur-Mer", "Marsilly", "Nieul-sur-Mer", "Châtelaillon-Plage",
+    "Fouras", "Aytré", "Angoulins", "L'Houmeau", "Saint-Xandre"
   ];
 
   const handleChange = (e) => {
@@ -60,6 +68,35 @@ export default function AjouterLocationAnnuelle() {
     }));
   };
 
+  // Autocomplete adresse (désactivé la partie lat/lng et map)
+  const handleAddressChange = async (e) => {
+    const address = e.target.value;
+    setForm(prev => ({ ...prev, address }));
+
+    if (address.length < 3) {
+      setSuggestions([]);
+      return;
+    }
+
+    const token = 'pk.eyJ1IjoiZWxvdWFubWF1cmljZSIsImEiOiJjbWZybjFsNDIwYnU5MmtxeHpmbjQyMjZiIn0.tAQPm55qOfTvL_IpsFinVA';
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?autocomplete=true&limit=5&access_token=${token}`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.features) {
+        setSuggestions(data.features);
+      }
+    } catch (err) {
+      console.error("Erreur autocomplete:", err);
+    }
+  };
+
+  // Quand on clique sur une suggestion
+  const handleSelectSuggestion = (feature) => {
+    setForm(prev => ({ ...prev, address: feature.place_name }));
+    setSuggestions([]);
+  };
   
 
   const handleImageChange = async (e) => {
@@ -94,93 +131,129 @@ export default function AjouterLocationAnnuelle() {
     router.push('/location-annuelle');
   };
 
-  return (
-    <AdminLayout>
-      <div className={styles.formContainer}>
-        <button type="button" className={styles.backButton} onClick={() => router.back()}>
-          ← Retour
-        </button>
+  return (<div className={styles.formContainer}>
+      <button type="button" className={styles.backButton} onClick={() => router.back()}>← Retour</button>
+      <h1 className={styles.formTitle}>Ajouter un bien</h1>
 
-        <h1 className={styles.formTitle}>Ajouter une location annuelle</h1>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          {/* Infos principales */}
-          <input name="title" placeholder="Titre" onChange={handleChange} required className={styles.input} />
-          <input name="reference" placeholder="Référence" onChange={handleChange} required className={styles.input} />
-          <select name="location" onChange={handleChange} value={form.location} className={styles.input} required>
-            <option value="">Choisissez une localisation</option>
-            {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
-          </select>
-          <input name="price" placeholder="Loyer mensuel (€)" type="number" onChange={handleChange} required className={styles.input} />
-          <input name="type" placeholder="Type de bien (Maison, Appartement…)" onChange={handleChange} className={styles.input} />
- {/* Description */}
-          <textarea name="description" placeholder="Description du bien" onChange={handleChange} rows="4" className={styles.textarea} />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {/* Informations principales */}
+        <input name="title" placeholder="Titre" onChange={handleChange} required className={styles.input} />
+        <input name="reference" placeholder="Référence" onChange={handleChange} required className={styles.input} />
+        <select name="location" onChange={handleChange} value={form.location} className={styles.input} required>
+          <option value="">Choisissez une localisation</option>
+          {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
+        </select>
 
-          {/* Informations générales */}
-          <h2 className={styles.sectionTitle}>Informations générales</h2>
-          <input name="surface" placeholder="Surface habitable (m²)" type="number" onChange={handleChange} className={styles.input} />
-          <input name="rooms" placeholder="Nombre de pièces" type="number" onChange={handleChange} className={styles.input} />
-          <input name="bedrooms" placeholder="Nombre de chambres" type="number" onChange={handleChange} className={styles.input} />
-          <input name="bathrooms" placeholder="Nombre de salles de bain" type="number" onChange={handleChange} className={styles.input} />
-          <input name="furnished" placeholder="meublé" onChange={handleChange} className={styles.input} />
+        {/* Champ adresse + suggestions */}
+        <input
+          name="address"
+          placeholder="Adresse complète"
+          onChange={handleAddressChange}
+          value={form.address}
+          required
+          className={styles.input}
+        />
+        {suggestions.length > 0 && (
+          <ul style={{ background: "white", border: "1px solid #ccc", marginTop: "0", padding: "5px", listStyle: "none", maxHeight: "150px", overflowY: "auto" }}>
+            {suggestions.map((s, idx) => (
+              <li
+                key={idx}
+                style={{ padding: "5px", cursor: "pointer" }}
+                onClick={() => handleSelectSuggestion(s)}
+              >
+                {s.place_name}
+              </li>
+            ))}
+          </ul>
+        )}
 
-          <input name="floor" placeholder="Étage (si applicable)" onChange={handleChange} className={styles.input} />
+        <input name="price" placeholder="Prix (€)" type="number" onChange={handleChange} required className={styles.input} />
+        <select name="type" onChange={handleChange} value={form.type} className={styles.input} required>
+          <option value="">Type de bien</option>
+          <option value="Maison">Maison</option>
+          <option value="Appartement">Appartement</option>
+          <option value="Garage">Garage</option>
+          <option value="Terrain">Terrain</option>
+          <option value="Bureau">Bureau</option>
+          <option value="Local commercial">Local commercial</option>
+          <option value="Parking">Parking</option>
+          <option value="Autre">Autre</option>
+        </select>
 
-           {/* Équipements essentiels */}
-          <h2 className={styles.sectionTitle}>Équipements</h2>
-          <label><input type="checkbox" name="garage" onChange={handleChange} /> Garage</label>
-          <label><input type="checkbox" name="garden" onChange={handleChange} /> Jardin</label>
-          <label><input type="checkbox" name="pool" onChange={handleChange} /> Piscine</label>
-          <label><input type="checkbox" name="terrace" onChange={handleChange} /> Terrasse</label>
-          <label><input type="checkbox" name="balcony" onChange={handleChange} /> Balcon</label>
-          <label><input type="checkbox" name="parking" onChange={handleChange} /> Parking</label>
-          <label><input type="checkbox" name="cellar" onChange={handleChange} /> Cave</label>
-          <label><input type="checkbox" name="elevator" onChange={handleChange} /> Ascenseur</label>
-          <label><input type="checkbox" name="intercom" onChange={handleChange} /> Interphone</label>
-          <label><input type="checkbox" name="airConditioning" onChange={handleChange} /> Climatisation</label>
+<textarea
+  name="description"
+  placeholder="Description"
+  rows="4"  // hauteur de départ
+  className={styles.textarea}
+  onChange={(e) => {
+    handleChange(e);
+    e.target.style.height = "auto"; // réinitialise la hauteur
+    e.target.style.height = e.target.scrollHeight + "px"; // ajuste selon le texte
+  }}
+/>
 
-          {/* Caractéristiques */}
-          <h2 className={styles.sectionTitle}>Caractéristiques</h2>
-          <input name="yearBuilt" placeholder="Année de construction" type="number" onChange={handleChange} className={styles.input} />
-          <select name="heatingType" onChange={handleChange} className={styles.input}>
-            <option value="">Type de chauffage</option>
-            <option value="électrique">Électrique</option>
-            <option value="gaz">Gaz</option>
-            <option value="bois">Bois</option>
-            <option value="pompe à chaleur">Pompe à chaleur</option>
-            <option value="autre">Autre</option>
-          </select>
+        {/* Informations générales */}
+        <h2 className={styles.sectionTitle}>Informations générales</h2>
+        <input name="surfaceterrain" placeholder="Surface du terrain (m²)" type="number" onChange={handleChange} className={styles.input} />
 
-        
+        <input name="surface" placeholder="Surface habitable (m²)" type="number" onChange={handleChange} className={styles.input} />
+        <input name="rooms" placeholder="Nombre de pièces" type="number" onChange={handleChange} className={styles.input} />
+        <input name="chambre" placeholder="Nombre de chambres" type="number" onChange={handleChange} className={styles.input} />
+        <input name="bathrooms" placeholder="Nombre de salles de bain" type="number" onChange={handleChange} className={styles.input} />
+        <input name="wc" placeholder="Nombre de WC" type="number" onChange={handleChange} className={styles.input} />
+<label className={styles.toggle}>
+  <input
+    type="checkbox"
+    name="meuble"
+    checked={form.meuble}
+    onChange={handleChange}
+  />
+  <span className={styles.slider}></span>
+  <span className={styles.labelText}>Meublé</span>
+</label>
 
-          {/* Informations administratives */}
-          <h2 className={styles.sectionTitle}>Informations administratives</h2>
-          <input name="charges" placeholder="Charges mensuelles (€)" type="number" onChange={handleChange} className={styles.input} />
-          <input name="propertyTax" placeholder="Taxe foncière (€)" type="number" onChange={handleChange} className={styles.input} />
-          <label><input type="checkbox" name="coOwnership" onChange={handleChange} /> Copropriété</label>
-          <input name="numberOfLots" placeholder="Nombre de lots (si copropriété)" type="number" onChange={handleChange} className={styles.input} />
+<label className={styles.toggle}>
+  <input
+    type="checkbox"
+    name="animaux"
+    checked={form.animaux}
+    onChange={handleChange}
+  />
+  <span className={styles.slider}></span>
+  <span className={styles.labelText}>Animaux autorisés</span>
+</label>
 
-         
-          {/* Images */}
-          <label className={styles.label}>Ajoutez plusieurs photos :</label>
-          <button type="button" onClick={() => fileInputRef.current && fileInputRef.current.click()} className={styles.input}>
-            Ajouter des images
-          </button>
-          <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleImageChange} style={{ display: 'none' }} />
+       
+        {/* Équipements */}
+        <h2 className={styles.sectionTitle}>Équipements</h2>
+        {['garage','balcon','terrasse','parking','cave','ascenseur','interphone','piscine','jardin','climatisation'].map(eq => (
+          <label key={eq}>
+            <input type="checkbox" name={eq} onChange={handleChange} /> {eq.charAt(0).toUpperCase() + eq.slice(1)}
+          </label>
+        ))}
 
-          {imagePreviews.length > 0 && (
-            <div className={styles.imagePreview}>
-              {imagePreviews.map((url, idx) => (
-                <div key={idx} className={styles.previewContainer}>
-                  <img src={url} alt={`preview-${idx}`} className={styles.previewImage} />
-                  <button type="button" onClick={() => removeImage(idx)}>❌</button>
-                </div>
-              ))}
-            </div>
-          )}
+        {/* Informations administratives */}
+        <h2 className={styles.sectionTitle}>Informations administratives</h2>
+        <input name="charge" placeholder="Charges mensuelles (€)" type="number" onChange={handleChange} className={styles.input} />
+        <input name="taxe" placeholder="Taxe foncière (€)" type="number" onChange={handleChange} className={styles.input} />
 
-          <button type="submit" className={styles.submitButton}>Ajouter la location</button>
-        </form>
-      </div>
-    </AdminLayout>
+        {/* Images */}
+        <label className={styles.label}>Ajoutez plusieurs photos :</label>
+        <button type="button" onClick={() => fileInputRef.current?.click()} className={styles.input}>Ajouter des images</button>
+        <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleImageChange} style={{ display: 'none' }} />
+        {imagePreviews.length > 0 && (
+          <div className={styles.imagePreview}>
+            {imagePreviews.map((url, idx) => (
+              <div key={idx} className={styles.previewContainer}>
+                <Image src={url} alt={`preview-${idx}`} width={200} height={150} className={styles.previewImage} />
+                <button type="button" onClick={() => removeImage(idx)}>❌</button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <button type="submit" className={styles.submitButton}>Ajouter</button>
+      </form>
+    </div>
   );
 }
