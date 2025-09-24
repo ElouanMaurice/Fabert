@@ -167,7 +167,7 @@ export default function AjouterLocationAnnuelle() {
           </ul>
         )}
 
-        <input name="price" placeholder="Prix (€)" type="number" onChange={handleChange} required className={styles.input} />
+        <input name="price" placeholder="Prix (€)" onChange={handleChange} required className={styles.input} />
         <select name="type" onChange={handleChange} value={form.type} className={styles.input} required>
           <option value="">Type de bien</option>
           <option value="Maison">Maison</option>

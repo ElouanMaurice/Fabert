@@ -198,7 +198,6 @@ const handleEquipmentChange = (equipment) => {
 };
 
   const handleSubmit = async (e) => {
-          console.log("DATA ENVOYÉ AU BACKEND :", data);
 
     e.preventDefault();
     const data = {
