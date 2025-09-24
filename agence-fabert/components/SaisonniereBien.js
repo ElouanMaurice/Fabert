@@ -45,7 +45,7 @@ const SaisonniereBien = ({ saison }) => {
              <div>Surface: {saison.surface}m²</div>
                           <div>Capacité: {saison.capacity}</div>
 
-             <div>Chambres: {saison.bedrooms}</div>
+             <div>Chambres: {saison.chambre}</div>
     <div className={styles.reference}>Réf: {saison.reference}</div> 
            </div>
          </div>

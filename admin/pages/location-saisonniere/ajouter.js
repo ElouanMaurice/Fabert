@@ -198,10 +198,13 @@ const handleEquipmentChange = (equipment) => {
 };
 
   const handleSubmit = async (e) => {
+          console.log("DATA ENVOYÉ AU BACKEND :", data);
+
     e.preventDefault();
     const data = {
+
       ...form,
-      price: Number(form.price),
+      price: (form.price),
       surface: Number(form.surface),
       rooms: Number(form.rooms),
       chambre: Number(form.chambre),
@@ -215,6 +218,7 @@ const handleEquipmentChange = (equipment) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
+      
     });
     router.push("/location-saisonniere");
   };
