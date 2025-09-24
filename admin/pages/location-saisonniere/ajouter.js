@@ -9,6 +9,7 @@ export default function AjouterLocationSaisonniere() {
     reference: "",
     location: "",
     price: "",
+      address: "", // ✅ AJOUTE-MOI ICI
     type: "",
     surface: "",
     rooms: "",
@@ -21,23 +22,69 @@ export default function AjouterLocationSaisonniere() {
     heatingType: "",
     energyRating: "",
     ges: "",
-    // options
-    meuble: false,
-    animaux: false,
-    // équipements
-    garage: false,
-    jardin: false,
-    piscine: false,
-    terrasse: false,
-    balcon: false,
-    parking: false,
-    cave: false,
-    ascenseur: false,
-    interphone: false,
-    climatisation: false,
+    
+   
     description: "",
     images: [],
   });
+
+ // --- Exemple : équipements regroupés par catégories
+const EQUIPMENT_CATEGORIES = {
+  Cuisine: [
+    "Lave-vaisselle",
+    "Réfrigérateur",
+    "Congélateur",
+    "Cuisinière",
+    "Four",
+    "Micro-ondes",
+    "Cafetière",
+    "Bouilloire",
+    "Grille-pain",
+    "Vaisselle & couverts",
+  ],
+  Confort: [
+    "Cheminée",
+    "Climatisation",
+    "Chauffage",
+    "Télévision",
+    "Wifi",
+    "Lave-linge",
+    "Sèche-linge",
+    "Fer à repasser",
+    "Aspirateur",
+  ],
+  "Salle de bain": [
+    "Douche",
+    "Baignoire",
+    "Sèche-cheveux",
+    "Serviettes fournies",
+  ],
+   Enfants: [
+    "Lit bébé",
+    "Chaise haute",
+    "Jeux de société",
+    "Livres pour enfants",
+    "Jouets",
+    "Vaisselle enfant",
+    "Barrière de sécurité",
+  ],
+  Extérieur: [
+    "Terrasse",
+    "Balcon",
+    "Jardin",
+    "Salon de jardin",
+    "Barbecue",
+    "Piscine",
+    "Jacuzzi",
+    "Parking privé",
+  ],
+  Divers: [
+    "Animaux acceptés",
+    "Non-fumeur",
+    "Accessible PMR",
+    "Coffre-fort",
+  ],
+};
 
   const [imagePreviews, setImagePreviews] = useState([]);
   const fileInputRef = useRef(null);
@@ -102,6 +149,13 @@ export default function AjouterLocationSaisonniere() {
     }
   };
 
+  // Quand on clique sur une suggestion
+  const handleSelectSuggestion = (feature) => {
+    setForm(prev => ({ ...prev, address: feature.place_name }));
+    setSuggestions([]);
+  };
+  
+
   const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
     const urls = await Promise.all(
@@ -130,6 +184,19 @@ export default function AjouterLocationSaisonniere() {
     setImagePreviews((prev) => prev.filter((_, i) => i !== idx));
   };
 
+
+  // --- State
+const [selectedEquipments, setSelectedEquipments] = useState([]);
+
+// --- Handler
+const handleEquipmentChange = (equipment) => {
+  setSelectedEquipments((prev) =>
+    prev.includes(equipment)
+      ? prev.filter((e) => e !== equipment)
+      : [...prev, equipment]
+  );
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -141,6 +208,8 @@ export default function AjouterLocationSaisonniere() {
       bathrooms: Number(form.bathrooms),
       wc: Number(form.wc),
       capacity: Number(form.capacity),
+        equipments: selectedEquipments,
+
     };
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres`, {
       method: "POST",
@@ -223,7 +292,6 @@ export default function AjouterLocationSaisonniere() {
           <input
             name="price"
             value={form.price}
-            type="number"
             onChange={handleChange}
             required
             className={styles.input}
@@ -322,44 +390,29 @@ export default function AjouterLocationSaisonniere() {
             className={styles.input}
           />
 
-          {/* Options */}
-          <h2 className={styles.sectionTitle}>Options</h2>
-          <label className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              name="animaux"
-              checked={form.animaux}
-              onChange={handleChange}
-            />{" "}
-            Animaux autorisés
-          </label>
 
-          {/* Équipements */}
-          <h2 className={styles.sectionTitle}>Équipements</h2>
-          {[
-            "garage",
-            "jardin",
-            "piscine",
-            "terrasse",
-            "balcon",
-            "parking",
-            "cave",
-            "ascenseur",
-            "interphone",
-            "climatisation",
-          ].map((eq) => (
-            <label key={eq} className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                name={eq}
-                checked={form[eq]}
-                onChange={handleChange}
-              />{" "}
-              {eq.charAt(0).toUpperCase() + eq.slice(1)}
-            </label>
-          ))}
+          
          
 
+{Object.entries(EQUIPMENT_CATEGORIES).map(([category, equipments]) => (
+  <div key={category} className={styles.group}>
+    <label>{category}</label>
+    <div className={styles.typeButtons}>
+      {equipments.map((eq) => (
+        <button
+          key={eq}
+          type="button"
+          className={`${styles.typeButton} ${
+            selectedEquipments.includes(eq) ? styles.selected : ""
+          }`}
+          onClick={() => handleEquipmentChange(eq)}
+        >
+          {eq}
+        </button>
+      ))}
+    </div>
+  </div>
+))}
           
 
           {/* Images */}

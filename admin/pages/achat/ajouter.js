@@ -195,7 +195,7 @@ export default function Ajouter() {
 
         {/* Équipements */}
         <h2 className={styles.sectionTitle}>Équipements</h2>
-        {['garage','balcon','terrasse','parking','cave','ascenseur','interphone','piscine','jardin','climatisation'].map(eq => (
+        {['garage','balcon','terrasse','parking','cave','piscine','jardin'].map(eq => (
           <label key={eq}>
             <input type="checkbox" name={eq} onChange={handleChange} /> {eq.charAt(0).toUpperCase() + eq.slice(1)}
           </label>

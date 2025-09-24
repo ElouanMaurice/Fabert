@@ -211,7 +211,7 @@ export default function ModifierLocationAnnuelle() {
 
         {/* Équipements */}
         <h2 className={styles.sectionTitle}>Équipements</h2>
-        {['garage','balcon','terrasse','parking','ascenseur','interphone','piscine','jardin','climatisation'].map(eq => (
+        {['garage','balcon','terrasse','parking','piscine','jardin'].map(eq => (
           <label key={eq} className={styles.checkboxLabel}>
             <input type="checkbox" name={eq} checked={form[eq]} onChange={handleChange} /> {eq.charAt(0).toUpperCase() + eq.slice(1)}
           </label>

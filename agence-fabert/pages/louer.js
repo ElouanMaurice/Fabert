@@ -103,7 +103,7 @@ const Louer = () => {
               </button>
 
             </div>
-            <div classeName={styles.choiceContainer}>
+            <div className={styles.choiceContainer}>
             <h5>Choisissez le type de location...</h5>
           </div>
           </div>

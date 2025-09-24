@@ -14,22 +14,22 @@ export default function AjouterLocationAnnuelle() {
     type: '',
     surface: '',
     rooms: '',
-    bedrooms: '',
+    chambre: '',
     bathrooms: '',
     floor: '',
     yearBuilt: '',
     heatingType: '',
-    charges: '',
-    propertyTax: '',
+    charge: '',
+    taxe: '',
     coOwnership: false,
     numberOfLots: '',
     meuble: false,      // Meublé
   animaux: false, 
     garage: false,
-    garden: false,
-    pool: false,
-    terrace: false,
-    balcony: false,
+    jardin: false,
+    piscine: false,
+    terrasse: false,
+    balcon: false,
     parking: false,
     cellar: false,
     elevator: false,
@@ -194,7 +194,6 @@ export default function AjouterLocationAnnuelle() {
 
         {/* Informations générales */}
         <h2 className={styles.sectionTitle}>Informations générales</h2>
-        <input name="surfaceterrain" placeholder="Surface du terrain (m²)" type="number" onChange={handleChange} className={styles.input} />
 
         <input name="surface" placeholder="Surface habitable (m²)" type="number" onChange={handleChange} className={styles.input} />
         <input name="rooms" placeholder="Nombre de pièces" type="number" onChange={handleChange} className={styles.input} />
@@ -226,7 +225,7 @@ export default function AjouterLocationAnnuelle() {
        
         {/* Équipements */}
         <h2 className={styles.sectionTitle}>Équipements</h2>
-        {['garage','balcon','terrasse','parking','cave','ascenseur','interphone','piscine','jardin','climatisation'].map(eq => (
+        {['garage','balcon','terrasse','parking','cave','piscine','jardin'].map(eq => (
           <label key={eq}>
             <input type="checkbox" name={eq} onChange={handleChange} /> {eq.charAt(0).toUpperCase() + eq.slice(1)}
           </label>

@@ -13,6 +13,9 @@ const LocationAnnuelleSchema = new mongoose.Schema({
   wc: { type: Number },
   description: { type: String },
   reference: { type: String, required: true },
+meuble: { type: Boolean },      // Meublé
+  animaux: { type: Boolean }, 
+    
 
   // Caractéristiques
   yearBuilt: { type: Number },

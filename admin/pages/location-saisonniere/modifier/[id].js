@@ -4,39 +4,54 @@ import AdminLayout from "../../../components/AdminLayout";
 import styles from "../../../styles/FormulaireAdmin.module.css";
 
 export default function ModifierLocationSaisonniere() {
-  const [form, setForm] = useState(null); // on initialise à null en attendant le fetch
+  const [form, setForm] = useState(null); 
   const [imagePreviews, setImagePreviews] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [selectedEquipments, setSelectedEquipments] = useState([]);
   const fileInputRef = useRef(null);
   const router = useRouter();
   const { id } = router.query;
 
   const locations = [
-    "Rivedoux-Plage",
-    "Sainte-Marie-de-Ré",
-    "La Flotte",
-    "Saint-Martin-de-Ré",
-    "Le Bois-Plage-en-Ré",
-    "La Couarde-sur-Mer",
-    "Loix",
-    "Ars-en-Ré",
-    "Saint-Clément-des-Baleines",
-    "Les-Portes-en-Ré",
-    "La Rochelle",
-    "Lagord",
-    "Périgny",
-    "Dompierre-sur-Mer",
-    "Marsilly",
-    "Nieul-sur-Mer",
-    "Châtelaillon-Plage",
-    "Fouras",
-    "Aytré",
-    "Angoulins",
-    "L'Houmeau",
-    "Saint-Xandre",
+    "Rivedoux-Plage","Sainte-Marie-de-Ré","La Flotte","Saint-Martin-de-Ré",
+    "Le Bois-Plage-en-Ré","La Couarde-sur-Mer","Loix","Ars-en-Ré",
+    "Saint-Clément-des-Baleines","Les-Portes-en-Ré", "La Rochelle", "Lagord", "Périgny",
+    "Dompierre-sur-Mer", "Marsilly", "Nieul-sur-Mer", "Châtelaillon-Plage",
+    "Fouras", "Aytré", "Angoulins", "L'Houmeau", "Saint-Xandre"
   ];
 
-  // Charger les infos existantes
+  const EQUIPMENT_CATEGORIES = {
+    Cuisine: [
+      "Lave-vaisselle","Réfrigérateur","Congélateur","Cuisinière","Four",
+      "Micro-ondes","Cafetière","Bouilloire","Grille-pain","Vaisselle & couverts",
+    ],
+    Confort: [
+      "Cheminée","Climatisation","Chauffage","Télévision","Wifi",
+      "Lave-linge","Sèche-linge","Fer à repasser","Aspirateur",
+    ],
+    "Salle de bain": [
+      "Douche","Baignoire","Sèche-cheveux","Serviettes fournies",
+    ],
+    Extérieur: [
+      "Terrasse","Balcon","Jardin","Salon de jardin",
+      "Barbecue","Piscine","Jacuzzi","Parking privé",
+    ],
+
+    Enfants: [
+    "Lit bébé",
+    "Chaise haute",
+    "Jeux de société",
+    "Livres pour enfants",
+    "Jouets",
+    "Vaisselle enfant",
+    "Barrière de sécurité",
+  ],
+    Divers: [
+      "Animaux acceptés","Non-fumeur","Accessible PMR","Coffre-fort",
+    ],
+  };
+
+  // Charger infos existantes
   useEffect(() => {
     if (!id) return;
     const fetchLocation = async () => {
@@ -47,6 +62,7 @@ export default function ModifierLocationSaisonniere() {
         const data = await res.json();
         setForm(data);
         setImagePreviews(data.images || []);
+        setSelectedEquipments(data.equipments || []); // <-- récup équipements
       } catch (err) {
         console.error("Erreur lors du chargement :", err);
       }
@@ -60,6 +76,15 @@ export default function ModifierLocationSaisonniere() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  // Gestion équipements
+  const handleEquipmentChange = (equipment) => {
+    setSelectedEquipments((prev) =>
+      prev.includes(equipment)
+        ? prev.filter((e) => e !== equipment)
+        : [...prev, equipment]
+    );
   };
 
   // Autocomplete adresse
@@ -133,6 +158,7 @@ export default function ModifierLocationSaisonniere() {
       bathrooms: Number(form.bathrooms),
       wc: Number(form.wc),
       capacity: Number(form.capacity),
+      equipments: selectedEquipments, // <-- envoi des équipements
     };
     await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/locations-saisonnieres/${id}`,
@@ -162,7 +188,7 @@ export default function ModifierLocationSaisonniere() {
         </h1>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          {/* --- mêmes champs que Ajouter, mais avec value={form.xxx} --- */}
+          {/* ... mêmes champs que Ajouter ... */}
 
           <label className={styles.label}>Titre</label>
           <input
@@ -172,6 +198,7 @@ export default function ModifierLocationSaisonniere() {
             required
             className={styles.input}
           />
+         
 
           <label className={styles.label}>Référence</label>
           <input
@@ -231,7 +258,7 @@ export default function ModifierLocationSaisonniere() {
           )}
 
              <label className={styles.label}>Prix (€ / mois)</label>
-        <input name="price" value={form.price} type="number" onChange={handleChange} placeholder="Prix (€)" className={styles.input} required />
+        <input name="price" value={form.price} type="text" onChange={handleChange} placeholder="Prix (€)" className={styles.input} required />
 
         <label className={styles.label}>Description</label>
         <textarea name="description" value={form.description} onChange={handleChange} rows="4" className={styles.textarea} />
@@ -281,22 +308,29 @@ export default function ModifierLocationSaisonniere() {
             onChange={handleChange}
             className={styles.input}
           />
-        {/* Options */}
-        <h2 className={styles.sectionTitle}>Options</h2>
-        <label className={styles.checkboxLabel}>
-          <input type="checkbox" name="meuble" checked={form.meuble} onChange={handleChange} /> Meublé
-        </label>
-        <label className={styles.checkboxLabel}>
-          <input type="checkbox" name="animaux" checked={form.animaux} onChange={handleChange} /> Animaux autorisés
-        </label>
+        
 
-        {/* Équipements */}
-        <h2 className={styles.sectionTitle}>Équipements</h2>
-        {['garage','balcon','terrasse','parking','ascenseur','interphone','piscine','jardin','climatisation'].map(eq => (
-          <label key={eq} className={styles.checkboxLabel}>
-            <input type="checkbox" name={eq} checked={form[eq]} onChange={handleChange} /> {eq.charAt(0).toUpperCase() + eq.slice(1)}
-          </label>
-        ))}
+         {/* Équipements */}
+          <h2 className={styles.sectionTitle}>Équipements</h2>
+          {Object.entries(EQUIPMENT_CATEGORIES).map(([category, equipments]) => (
+            <div key={category} className={styles.group}>
+              <label>{category}</label>
+              <div className={styles.typeButtons}>
+                {equipments.map((eq) => (
+                  <button
+                    key={eq}
+                    type="button"
+                    className={`${styles.typeButton} ${
+                      selectedEquipments.includes(eq) ? styles.selected : ""
+                    }`}
+                    onClick={() => handleEquipmentChange(eq)}
+                  >
+                    {eq}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
 
           {/* Images */}
           <h2 className={styles.sectionTitle}>Images</h2>
